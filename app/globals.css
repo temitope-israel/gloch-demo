@@ -1,26 +1,85 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+
+html {
+  scroll-behavior: smooth;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  /* Brand Colors */
+  --color-gold: #C9A227;
+  --color-gold-light: #E4C766;
+  --color-gold-dark: #A6841A;
+
+
+  /* Neutrals (Light Theme base) */
+  --color-ink: #0A0A0A;     /* near-black, used for text */
+  --color-paper: #FAFAF8; /* warm off-white, used for backgrounds */
+  --color-warm-gray-50: #F5F4F2;
+  --color-warm-gray-100: #E8E6E1;
+  --color-warm-gray-300: #C4C0B8;
+  --color-warm-gray-500: #8A867C;
+  --color-warm-gray-700: #57544C;
+  --color-warm-gray-900: #2B2925;
+
+
+  /*  Semantic Tokens (theme-aware, defined via CSS variables below) */
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-surface: #FFFFFF;
+  --color-border: var(--color-warm-gray-100);
+
+
+   --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+
+  /* Type scale - deliberately large, generous jumps */
+  --text-display: 4.5rem; /* 72px - hero headline (desktop) */
+  --text-h1: 3rem; /* 48px - section headlines */
+  --text-h2: 2.25rem; /*36px */
+  --text-h3: 1.5rem; /* 24px*/
+  --text-body-lg: 1.125rem; /* 18px - comfortable reading size */
+  --text-body: 1rem; /* 16px */
+  --text-small: 0.875rem; /* 14px - captions, labels */
+
+
+  /* Spacing System */
+  --spacing-section-y: 8rem; /* 128px - vertical padding per section, desktop */
+  --spacing-section-y-mobile: 4rem; /* 64px - mobile */
+
+
+  /* Border Radius & Shadows */
+  --radius-card: 1rem; /* 16px - cards, images */
+  --radius-button: 0.5rem; /* 8px - buttons, inputs */
+
+  --shadow-soft: 0 4px 24px -4px rgb(0 0 0 / 0.08);
+  --shadow-soft-lg: 0 12px 48px -8px rgb(0 0 0 / 0.12)
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Dark theme overrides - next-themes toggles a class on <html> */
+.dark {
+  --color-background: #0A0A0A; /* dark background */
+  --color-foreground: #FAFAF8; /* light foreground */
+  --color-surface: #151412; /* dark surface */
+  --color-border: #2B2925; /* dark border */
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* app/globals.css — add below your @theme block */
+
+@keyframes hero-crossfade {
+  0%   { opacity: 0; }
+  8%   { opacity: 1; }
+  33%  { opacity: 1; }
+  41%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.hero-crossfade {
+  opacity: 0;
+  animation: hero-crossfade 18s ease-in-out infinite;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: opacity;
 }
