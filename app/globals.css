@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
-
-
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
 }
 
+html.dark {
+  color-scheme: dark;
+}
 @theme {
   /* Brand Colors */
   --color-gold: #C9A227;
@@ -64,6 +66,7 @@ html {
   --color-foreground: #FAFAF8; /* light foreground */
   --color-surface: #151412; /* dark surface */
   --color-border: #2B2925; /* dark border */
+
 }
 
 /* app/globals.css — add below your @theme block */
