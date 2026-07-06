@@ -19,7 +19,7 @@ export const footerServices = [
 ] as const
 
 export const contactInfo = {
-  address: '14 Admiralty Way, Lekki Phase 1, Lagos, Nigeria',
+  address: '11a, Prince Alaba Abiodun Oniru Way, Victoria Island, Lagos, Nigeria.',
   email: 'info@glochstylistic.com',
   phone: '+234 800 000 0000',
 } as const

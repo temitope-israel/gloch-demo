@@ -25,7 +25,7 @@ const inter = Inter({
 // below, rather than hardcoding it in multiple places (title template,
 // Open Graph URL, canonical, etc). Update this once when the real
 // domain is live.
-const siteUrl = 'https://glochstylistic.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://gloch-stylistic.vercel.app';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
