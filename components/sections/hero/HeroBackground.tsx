@@ -20,7 +20,7 @@ export function HeroBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden">
       {/* emblaRef attaches to the "viewport" — the visible window */}
-      <div className="h-full" ref={emblaRef}>
+      <div className="h-full overflow-hidden" ref={emblaRef}>
         {/* Embla's required inner "container" — holds all slides in a row */}
         <div className="flex h-full">
           {heroImages.map((src, index) => (

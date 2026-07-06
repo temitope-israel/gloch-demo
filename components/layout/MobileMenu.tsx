@@ -36,7 +36,7 @@ export function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 + i * 0.06, duration: 0.4 }}
-                className="text-h2 text-foreground hover:text-gold font-serif transition-colors"
+                className="text-h2 text-foreground hover:text-gold-accessible dark:hover:text-gold font-serif transition-colors"
               >
                 {item.label}
               </motion.a>

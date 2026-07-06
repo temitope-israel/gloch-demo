@@ -3,6 +3,11 @@
 html {
   scroll-behavior: smooth;
   color-scheme: light;
+  overflow-x:hidden;
+  overflow-y: auto;
+}
+ body{
+  overflow-x: hidden;
 }
 
 html.dark {
@@ -13,6 +18,7 @@ html.dark {
   --color-gold: #C9A227;
   --color-gold-light: #E4C766;
   --color-gold-dark: #A6841A;
+  --color-gold-accessible: #8C6D15;
 
 
   /* Neutrals (Light Theme base) */
@@ -41,7 +47,7 @@ html.dark {
   --text-display: 4.5rem; /* 72px - hero headline (desktop) */
   --text-h1: 3rem; /* 48px - section headlines */
   --text-h2: 2.25rem; /*36px */
-  --text-h3: 1.5rem; /* 24px*/
+  --text-h3: 1.35rem; /* 24px*/
   --text-body-lg: 1.125rem; /* 18px - comfortable reading size */
   --text-body: 1rem; /* 16px */
   --text-small: 0.875rem; /* 14px - captions, labels */
@@ -77,6 +83,21 @@ html.dark {
   33%  { opacity: 1; }
   41%  { opacity: 0; }
   100% { opacity: 0; }
+}
+
+@keyframes ping-slow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+.animate-ping-slow {
+  animation: ping-slow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .hero-crossfade {

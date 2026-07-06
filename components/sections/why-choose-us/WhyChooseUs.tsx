@@ -36,7 +36,7 @@ export function WhyChooseUs() {
               >
                 <Card className="h-full">
                   <div className="bg-gold/10 flex h-12 w-12 items-center justify-center rounded-full">
-                    <Icon className="text-gold h-6 w-6" aria-hidden />
+                    <Icon className="text-gold-accessible h-6 w-6" aria-hidden />
                   </div>
                   <h3 className="text-h3 text-foreground mt-5 font-serif">{item.title}</h3>
                   <p className="text-warm-gray-700 dark:text-warm-gray-300 mt-3 text-sm leading-relaxed">

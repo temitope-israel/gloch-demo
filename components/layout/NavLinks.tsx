@@ -9,9 +9,10 @@ export function NavLinks() {
         <Link
           key={item.href}
           href={item.href}
-          className="hover:text-gold text-sm font-medium text-white/80 transition-colors"
+          className="group relative text-sm font-medium text-white/80 transition-colors hover:text-white"
         >
           {item.label}
+          <span className="bg-gold absolute -bottom-1 left-0 h-px w-0 transition-all duration-300 group-hover:w-full" />
         </Link>
       ))}
     </div>

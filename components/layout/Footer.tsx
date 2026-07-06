@@ -48,9 +48,10 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/70 transition-colors hover:text-white"
+                    className="group relative text-sm text-white/70 transition-colors hover:text-white"
                   >
                     {link.label}
+                    <span className="bg-gold absolute -bottom-1 left-0 h-px w-0 transition-all duration-300 group-hover:w-full" />
                   </Link>
                 </li>
               ))}
@@ -65,9 +66,10 @@ export function Footer() {
                 <li key={service.label}>
                   <Link
                     href={service.href}
-                    className="text-sm text-white/70 transition-colors hover:text-white"
+                    className="group relative text-sm text-white/70 transition-colors hover:text-white"
                   >
                     {service.label}
+                    <span className="bg-gold absolute -bottom-1 left-0 h-px w-0 transition-all duration-300 group-hover:w-full" />
                   </Link>
                 </li>
               ))}
@@ -80,11 +82,11 @@ export function Footer() {
             <ul className="mt-4 space-y-4">
               <li className="flex gap-3 text-sm text-white/70">
                 <MapPin className="text-gold h-5 w-5 shrink-0" aria-hidden />
-                <span>{contactInfo.address}</span>
+                <span className="break-words">{contactInfo.address}</span>
               </li>
               <li className="flex gap-3 text-sm text-white/70">
                 <Mail className="text-gold h-5 w-5 shrink-0" aria-hidden />
-                <a href={`mailto:${contactInfo.email}`} className="hover:text-white">
+                <a href={`mailto:${contactInfo.email}`} className="break-all hover:text-white">
                   {contactInfo.email}
                 </a>
               </li>
@@ -92,7 +94,7 @@ export function Footer() {
                 <Phone className="text-gold h-5 w-5 shrink-0" aria-hidden />
                 <a
                   href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
-                  className="hover:text-white"
+                  className="hover:text-white break-all"
                 >
                   {contactInfo.phone}
                 </a>

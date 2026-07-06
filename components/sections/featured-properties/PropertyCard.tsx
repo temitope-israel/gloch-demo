@@ -9,7 +9,7 @@ export function PropertyCard({ property }: { property: Property }) {
     // p-0 overrides Card's default padding — we want the image to sit
     // flush against the card edges, with padding only on the text content
     // below it, rather than the whole card having uniform inner spacing.
-    <Card className="group overflow-hidden p-0">
+    <Card className="group p-0">
       <div className="relative aspect-[4/3] w-full overflow-hidden">
         <Image
           src={property.image}
@@ -21,14 +21,14 @@ export function PropertyCard({ property }: { property: Property }) {
       </div>
 
       <div className="p-6">
-        <div className="text-warm-gray-500 flex items-center gap-1.5 text-sm">
+        <div className="text-warm-gray-700 flex items-center gap-1.5 text-sm">
           <MapPin className="h-4 w-4" aria-hidden />
           <span>{property.location}</span>
         </div>
 
         <h3 className="text-h3 text-foreground mt-2 font-serif">{property.title}</h3>
 
-        <p className="text-gold mt-3 font-serif text-xl">{property.price}</p>
+        <p className="text-gold mt-3 font-serif text-xl text-gold-accessible">{property.price}</p>
 
         <div className="border-border text-warm-gray-700 dark:text-warm-gray-300 mt-4 flex items-center gap-4 border-t pt-4 text-sm">
           <span className="flex items-center gap-1.5">
