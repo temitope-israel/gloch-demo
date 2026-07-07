@@ -8,9 +8,9 @@ export const aboutContent = {
     'What began as a small team focused on trustworthy property management has grown into a full-service agency spanning property management and development, without ever losing sight of that founding principle.',
   ],
   mission:
-    'To make premium real estate investment accessible, transparent, and secure for every client we serve.',
+    'We develop premium yet affordable homes through innovative construction, disciplined cost management, and ethical business practices — ensuring our clients enjoy superior living, long-term value, and peace of mind.',
   vision:
-    'To become West Africa\'s most trusted name in real estate — known as much for our integrity as our portfolio.',
+    'To become Nigeria’s most trusted and forward-thinking real estate developer — transforming urban living through sustainable design, exceptional quality, and thoughtfully priced homes that build lasting generational wealth for families',
   ceo: {
     name: 'Mr. Odiaka-Chinedu',
     role: 'Chief Executive Officer',

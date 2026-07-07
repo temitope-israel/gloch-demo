@@ -15,15 +15,11 @@ const fadeUp = {
 
 export function Hero() {
   return (
-    <section
-      id="home"
-      className="relative isolate flex min-h-screen items-center overflow-hidden bg-gradient-to-b from-[#2B2925] to-[#0A0A0A]"
-    >
+    <section id="home" className="relative flex min-h-screen items-center overflow-hidden">
       <HeroBackground />
 
-      <Container className="relative z-10 [transform:translateZ(0)] will-change-[opacity,transform] [backface-visibility:hidden]">
+      <Container className="relative z-10">
         <div className="max-w-3xl">
-
           <span className="text-gold mb-4 block text-sm font-medium tracking-widest uppercase">
             {heroContent.eyebrow}
           </span>

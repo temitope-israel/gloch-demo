@@ -107,3 +107,27 @@ html.dark {
   backface-visibility: hidden;
   will-change: opacity;
 }
+
+/* app/globals.css — add near your other custom classes */
+.nav-link {
+  position: relative;
+  padding-left: 0;
+  transition: padding-left 0.3s ease, color 0.3s ease;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--color-gold);
+  transform: translateY(-50%) scale(0);
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover::before {
+  transform: translateY(-50%) scale(1);
+}
