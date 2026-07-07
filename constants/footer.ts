@@ -16,6 +16,7 @@ export const footerQuickLinks = [
 export const footerServices = [
   { label: 'Property Management', href: '#services' },
   { label: 'Property Development', href: '#services' },
+  { label: 'Property Maintenance', href: '#services' },
 ] as const
 
 export const contactInfo = {
