@@ -106,10 +106,19 @@ export function Footer() {
               <li className="text-small text-warm-gray-400 flex items-center gap-3.5 font-light">
                 <Phone className="text-gold h-4 w-4 shrink-0 stroke-[1.5]" aria-hidden />
                 <a
-                  href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
+                  href={`tel:${contactInfo.phone1.replace(/\s/g, '')}`}
                   className="tracking-wide transition-colors duration-300 hover:text-white"
                 >
-                  {contactInfo.phone}
+                  {contactInfo.phone1}
+                </a>
+              </li>
+              <li className="text-small text-warm-gray-400 flex items-center gap-3.5 font-light">
+                <Phone className="text-gold h-4 w-4 shrink-0 stroke-[1.5]" aria-hidden />
+                <a
+                  href={`tel:${contactInfo.phone2.replace(/\s/g, '')}`}
+                  className="tracking-wide transition-colors duration-300 hover:text-white"
+                >
+                  {contactInfo.phone2}
                 </a>
               </li>
             </ul>

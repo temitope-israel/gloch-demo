@@ -21,7 +21,8 @@ export const footerServices = [
 export const contactInfo = {
   address: '11a, Prince Alaba Abiodun Oniru Way, Victoria Island, Lagos, Nigeria.',
   email: 'info@glochstylistic.com',
-  phone: '+234 800 000 0000',
+  phone1: '+234 809 301 1119',
+  phone2: '+234 916 985 5031',
 } as const
 
 // href values are placeholders — swap with real profile URLs later
