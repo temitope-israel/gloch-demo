@@ -32,7 +32,7 @@ export function Navbar() {
           borderColor: isScrolled ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)',
         }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 z-50 w-full border-b bg-[rgba(10,10,10,0.85)] backdrop-blur-lg"
+        className="fixed top-0 z-50 w-full border-b bg-[rgba(10,10,10,0.85)]"
       >
         <Container>
           <div className="flex h-20 items-center justify-between">
