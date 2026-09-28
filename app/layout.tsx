@@ -1,11 +1,11 @@
 // app/layout.tsx
 import type { Metadata } from 'next';
 import { Playfair_Display, Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton';
 import './globals.css';
+import SmoothScroll from '@/components/SmoothScroll';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -104,12 +104,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         suppressHydrationWarning
         className={`${playfair.variable} ${inter.variable} bg-background text-foreground font-sans`}
       >
-        <ThemeProvider>
-          <Navbar />
-          {children}
-          <Footer />
-          <WhatsAppButton />
-        </ThemeProvider>
+        <Navbar />
+        <SmoothScroll>
+
+        {children}
+        </SmoothScroll>
+        <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );
