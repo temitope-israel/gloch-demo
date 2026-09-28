@@ -12,12 +12,12 @@ export const whatsappContacts: WhatsAppContact[] = [
     id: 'sales',
     label: 'Sales Enquiries',
     role: 'Speak with our sales team about properties',
-    phoneNumber: '+234 916 985 5031',
+    phoneNumber: '+2349169855031',
   },
   {
     id: 'support',
     label: 'Customer Support',
     role: 'Get help with an existing booking or account',
-    phoneNumber: '+234 809 301 1119',
+    phoneNumber: '+2348093011119',
   },
 ]

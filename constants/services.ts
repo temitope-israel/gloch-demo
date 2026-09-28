@@ -22,7 +22,7 @@ export const services: Service[] = [
     title: 'Property Development',
     description:
       'We partner with landowners and investors to bring developments to life, managing every phase from planning and design through to completion.',
-    image: '/services/property-development.jpg',
+    image: '/services/property-development.webp',
     cta: { label: 'Learn More', href: '#contact' },
   },
   {

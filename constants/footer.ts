@@ -28,8 +28,10 @@ export const contactInfo = {
 
 // href values are placeholders — swap with real profile URLs later
 export const socialLinks = [
-  { label: 'Instagram', href: 'https://instagram.com', icon: 'instagram' },
-  { label: 'Facebook', href: 'https://facebook.com', icon: 'facebook' },
-  { label: 'LinkedIn', href: 'https://linkedin.com', icon: 'linkedin' },
+  { label: 'Instagram', href: 'https://www.instagram.com/glochstylistic/?hl=en', icon: 'instagram' },
+  { label: 'Facebook', href: 'https://web.facebook.com/Glochstylistic/', icon: 'facebook' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/gloch-stylistic/posts/?feedView=all', icon: 'linkedin' },
   { label: 'X', href: 'https://x.com', icon: 'x' },
+  { label: 'YouTube', href: 'https://www.youtube.com/@glochstylistic/videos', icon: 'youtube' },
+  { label: 'Tiktok', href: 'https://www.tiktok.com/@glochstylisticltd', icon: 'tiktok' },
 ] as const
