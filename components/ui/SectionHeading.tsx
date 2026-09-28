@@ -1,11 +1,10 @@
 // components/ui/SectionHeading.tsx
 import { cn } from '@/lib/utils';
-import { div } from 'framer-motion/client';
 
 interface SectionHeadingProps {
-  eyebrow?: string; // small label above the heading, e.g. "OUR SERVICES"
+  eyebrow?: string;
   title: string;
-  description: string;
+  description?: string; // ← now optional
   align?: 'left' | 'center';
   className?: string;
 }
@@ -25,11 +24,7 @@ export function SectionHeading({
         </span>
       )}
       <h2 className="text-h2 text-foreground md:text-h1 font-serif">{title}</h2>
-      {description && (
-        <p className="text-body-lg text-warm-gray-700 dark:text-warm-gray-300 mt-4">
-          {description}
-        </p>
-      )}
+      {description && <p className="text-body-lg text-warm-gray-700 mt-4">{description}</p>}
     </div>
   );
 }

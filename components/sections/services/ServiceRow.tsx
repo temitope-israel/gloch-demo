@@ -1,73 +1,128 @@
 // components/sections/services/ServiceRow.tsx
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowUpRight, Check } from 'lucide-react';
 import type { Service } from '@/constants/services';
 
 interface ServiceRowProps {
-  service: Service;
+  service: Service & { features?: string[] };
   reversed?: boolean;
+  index: number;
 }
 
-export function ServiceRow({ service, reversed = false }: ServiceRowProps) {
+export function ServiceRow({ service, reversed = false, index }: ServiceRowProps) {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent<HTMLDivElement>) {
+    const { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  const indexFormatted = String(index + 1).padStart(2, '0');
+
   return (
-    <div className="group grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
-      {/* Image Block with Luxury Ken Burns Over-Scale */}
+    <div className="group grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
+      {/* Image Block with Luxury Frame & Interactive Glow */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 32, filter: 'blur(4px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        // UPGRADE: Uses explicit order classes based on the reversed state, removing buggy child selectors
-        className={`shadow-soft relative aspect-[4/3] w-full overflow-hidden ${
+        onMouseMove={handleMouseMove}
+        className={`bg-surface hover:border-gold/40 relative aspect-[4/3] w-full overflow-hidden border border-[--color-border] p-2 transition-all duration-500 hover:shadow-2xl hover:shadow-amber-500/10 lg:col-span-7 ${
           reversed ? 'lg:order-2' : 'lg:order-1'
         }`}
-        style={{ borderRadius: 'var(--radius-card)' }}
+        style={{ borderRadius: 'var(--radius-card, 1rem)' }}
       >
-        {/* Soft layout outline reflect */}
-        <div className="pointer-events-none absolute inset-0 z-10 rounded-[--radius-card] border border-black/[0.04] dark:border-white/[0.04]" />
-
-        <Image
-          src={service.image}
-          alt={service.title}
-          fill
-          // UPGRADE: Dynamic transition scale inside the crop bounds when hover occurs anywhere on the block
-          className="object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105"
-          sizes="(min-width: 1024px) 50vw, 100vw"
+        {/* Mouse Follow Spotlight on Image Card */}
+        <motion.div
+          className="pointer-events-none absolute -inset-px z-20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{
+            background: useMotionTemplate`
+              radial-gradient(
+                500px circle at ${mouseX}px ${mouseY}px,
+                rgba(212, 175, 55, 0.15),
+                transparent 80%
+              )
+            `,
+          }}
         />
+
+        <div className="relative h-full w-full overflow-hidden rounded-[calc(var(--radius-card,1rem)-6px)]">
+          {/* Subtle Dark Overlay Fade */}
+          <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black/40 via-transparent to-black/10 opacity-60 transition-opacity duration-500 group-hover:opacity-30" />
+
+          <Image
+            src={service.image}
+            alt={service.title}
+            fill
+            className="object-cover transition-transform duration-[1800ms] ease-out group-hover:scale-105"
+            sizes="(min-width: 1024px) 55vw, 100vw"
+          />
+
+          {/* Floating Number Badge inside Image Container */}
+          <div className="text-gold absolute top-4 left-4 z-20 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/40 font-mono text-xs font-semibold backdrop-blur-md">
+            {indexFormatted}
+          </div>
+        </div>
       </motion.div>
 
       {/* Copywriting Content Block */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className={reversed ? 'lg:order-1' : 'lg:order-2'}
+        transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        className={`flex flex-col justify-center lg:col-span-5 ${
+          reversed ? 'lg:order-1' : 'lg:order-2'
+        }`}
       >
-        <h3 className="text-h2 text-foreground font-serif leading-tight font-light tracking-tight">
+        <span className="text-gold font-mono text-xs font-semibold tracking-[0.25em] uppercase">
+          0{index + 1} — Service Discipline
+        </span>
+
+        <h3 className="text-foreground mt-3 font-serif text-3xl leading-tight font-light tracking-tight sm:text-4xl">
           {service.title}
         </h3>
 
-        <p className="text-body lg:text-body-lg text-warm-gray-700 dark:text-warm-gray-300 mt-4 font-sans leading-relaxed font-light tracking-wide">
+        <p className="text-warm-gray-700 mt-4 font-sans text-base leading-relaxed font-light tracking-wide dark:text-zinc-300">
           {service.description}
         </p>
 
-        {/* UPGRADE: Replaced heavy block buttons with an elegant editorial text anchor link */}
+        {/* Feature List / Highlights */}
+        {service.features && service.features.length > 0 && (
+          <ul className="mt-6 flex flex-wrap gap-2.5">
+            {service.features.map((feature) => (
+              <li
+                key={feature}
+                className="bg-surface/80 text-foreground/80 inline-flex items-center gap-1.5 rounded-full border border-[--color-border] px-3.5 py-1.5 font-sans text-xs font-light backdrop-blur-sm"
+              >
+                <Check className="text-gold h-3.5 w-3.5" />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {/* Action Anchor Link */}
         <div className="mt-8">
-          <a
+          <Link
             href={service.cta.href}
-            className="group/link text-small text-foreground hover:text-gold inline-flex items-center gap-2 font-sans font-medium tracking-wider transition-colors duration-300"
+            className="group/link text-foreground hover:text-gold inline-flex items-center gap-3 font-sans text-sm font-medium tracking-wider transition-colors duration-300"
           >
-            <span className="relative py-1">
+            <span className="relative py-0.5">
               {service.cta.label}
-              {/* Animated baseline underline */}
-              <span className="bg-gold absolute bottom-0 left-0 h-[1.5px] w-full origin-left scale-x-50 transition-transform duration-300 group-hover/link:scale-x-100" />
+              <span className="bg-gold absolute bottom-0 left-0 h-[1.5px] w-full origin-left scale-x-30 transition-transform duration-300 group-hover/link:scale-x-100" />
             </span>
-            <ArrowRight className="text-gold h-4 w-4 transform transition-transform duration-300 group-hover/link:translate-x-1" />
-          </a>
+            <div className="group-hover/link:border-gold group-hover/link:bg-gold flex h-8 w-8 items-center justify-center rounded-full border border-[--color-border] transition-colors duration-300 group-hover/link:text-black">
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+            </div>
+          </Link>
         </div>
       </motion.div>
     </div>
@@ -75,63 +130,77 @@ export function ServiceRow({ service, reversed = false }: ServiceRowProps) {
 }
 
 // // components/sections/services/ServiceRow.tsx
-// 'use client'
+// 'use client';
 
-// import { motion } from 'framer-motion'
-// import Image from 'next/image'
-// import { buttonVariants } from '@/components/ui/button-variants'
-// import type { Service } from '@/constants/services'
-// import { cn } from '@/lib/utils'
+// import { motion } from 'framer-motion';
+// import Image from 'next/image';
+// import { ArrowRight } from 'lucide-react';
+// import type { Service } from '@/constants/services';
 
 // interface ServiceRowProps {
-//   service: Service
-//   reversed?: boolean // controls whether image sits left or right
+//   service: Service;
+//   reversed?: boolean;
 // }
 
 // export function ServiceRow({ service, reversed = false }: ServiceRowProps) {
 //   return (
-//     <div
-//       className={cn(
-//         'grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16',
-//         // On large screens, this flips which column the image occupies —
-//         // on mobile, order doesn't matter since it's a single column anyway,
-//         // so image always appears first there for a consistent scroll flow.
-//         reversed && 'lg:[&>*:first-child]:order-2'
-//       )}
-//     >
+//     <div className="group grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+//       {/* Image Block with Luxury Ken Burns Over-Scale */}
 //       <motion.div
-//         initial={{ opacity: 0, x: reversed ? 40 : -40 }}
-//         whileInView={{ opacity: 1, x: 0 }}
-//         viewport={{ once: true, amount: 0.3 }}
-//         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-//         className="relative aspect-[4/3] w-full overflow-hidden rounded-[--radius-card]"
+//         initial={{ opacity: 0, y: 30 }}
+//         whileInView={{ opacity: 1, y: 0 }}
+//         viewport={{ once: true, amount: 0.2 }}
+//         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+//         // UPGRADE: Uses explicit order classes based on the reversed state, removing buggy child selectors
+//         className={`shadow-soft relative aspect-[4/3] w-full overflow-hidden ${
+//           reversed ? 'lg:order-2' : 'lg:order-1'
+//         }`}
+//         style={{ borderRadius: 'var(--radius-card)' }}
 //       >
+//         {/* Soft layout outline reflect */}
+//         <div className="pointer-events-none absolute inset-0 z-10 rounded-[--radius-card] border border-black/[0.04] dark:border-white/[0.04]" />
+
 //         <Image
 //           src={service.image}
 //           alt={service.title}
 //           fill
-//           className="object-cover"
+//           // UPGRADE: Dynamic transition scale inside the crop bounds when hover occurs anywhere on the block
+//           className="object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105"
 //           sizes="(min-width: 1024px) 50vw, 100vw"
 //         />
 //       </motion.div>
 
+//       {/* Copywriting Content Block */}
 //       <motion.div
-//         initial={{ opacity: 0, x: reversed ? -40 : 40 }}
-//         whileInView={{ opacity: 1, x: 0 }}
-//         viewport={{ once: true, amount: 0.3 }}
-//         transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+//         initial={{ opacity: 0, y: 20 }}
+//         whileInView={{ opacity: 1, y: 0 }}
+//         viewport={{ once: true, amount: 0.2 }}
+//         transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+//         className={reversed ? 'lg:order-1' : 'lg:order-2'}
 //       >
-//         <h3 className="font-serif text-h2 text-foreground">{service.title}</h3>
-//         <p className="mt-4 text-body-lg leading-relaxed text-warm-gray-700 dark:text-warm-gray-300">
+//         <h3 className="text-h2 text-foreground font-serif leading-tight font-light tracking-tight">
+//           {service.title}
+//         </h3>
+
+//         <p className="text-body lg:text-body-lg text-warm-gray-700 dark:text-warm-gray-300 mt-4 font-sans leading-relaxed font-light tracking-wide">
 //           {service.description}
 //         </p>
 
-//        <a   href={service.cta.href}
-//           className={cn(buttonVariants({ variant: 'primary', size: 'md' }), 'mt-8 inline-flex')}
-//         >
-//           {service.cta.label}
-//         </a>
+//         {/* UPGRADE: Replaced heavy block buttons with an elegant editorial text anchor link */}
+//         <div className="mt-8">
+//           <a
+//             href={service.cta.href}
+//             className="group/link text-small text-foreground hover:text-gold inline-flex items-center gap-2 font-sans font-medium tracking-wider transition-colors duration-300"
+//           >
+//             <span className="relative py-1">
+//               {service.cta.label}
+//               {/* Animated baseline underline */}
+//               <span className="bg-gold absolute bottom-0 left-0 h-[1.5px] w-full origin-left scale-x-50 transition-transform duration-300 group-hover/link:scale-x-100" />
+//             </span>
+//             <ArrowRight className="text-gold h-4 w-4 transform transition-transform duration-300 group-hover/link:translate-x-1" />
+//           </a>
+//         </div>
 //       </motion.div>
 //     </div>
-//   )
+//   );
 // }

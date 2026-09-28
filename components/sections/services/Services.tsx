@@ -1,3 +1,4 @@
+
 // components/sections/services/Services.tsx
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
@@ -7,7 +8,13 @@ import { services } from '@/constants/services';
 
 export function Services() {
   return (
-    <Section id="services" className="bg-surface text-foreground transition-colors duration-300">
+    <Section
+      id="services"
+      className="bg-surface text-foreground relative overflow-hidden py-28 transition-colors duration-300"
+    >
+      {/* Background Soft Glow */}
+      <div className="pointer-events-none absolute top-1/3 left-1/2 -z-10 h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-amber-500/5 blur-3xl" />
+
       <Container>
         <SectionHeading
           eyebrow="Our Services"
@@ -17,10 +24,14 @@ export function Services() {
           className="mx-auto"
         />
 
-        {/* Generous editorial spacing spacing structure */}
-        <div className="mt-20 space-y-28 md:space-y-40">
+        <div className="mt-20 space-y-28 md:space-y-36">
           {services.map((service, index) => (
-            <ServiceRow key={service.id} service={service} reversed={index % 2 === 1} />
+            <ServiceRow
+              key={service.id}
+              service={service}
+              index={index}
+              reversed={index % 2 === 1}
+            />
           ))}
         </div>
       </Container>
@@ -37,7 +48,7 @@ export function Services() {
 
 // export function Services() {
 //   return (
-//     <Section id="services" className="bg-surface">
+//     <Section id="services" className="bg-surface text-foreground transition-colors duration-300">
 //       <Container>
 //         <SectionHeading
 //           eyebrow="Our Services"
@@ -47,11 +58,8 @@ export function Services() {
 //           className="mx-auto"
 //         />
 
-//         {/* space-y-24/32 creates generous separation between the two
-//             service rows — consistent with our Phase 3 "let it breathe"
-//             spacing principle, especially important here since each row
-//             is visually dense (image + heading + paragraph + button) */}
-//         <div className="mt-16 space-y-24 md:space-y-32">
+//         {/* Generous editorial spacing spacing structure */}
+//         <div className="mt-20 space-y-28 md:space-y-40">
 //           {services.map((service, index) => (
 //             <ServiceRow key={service.id} service={service} reversed={index % 2 === 1} />
 //           ))}

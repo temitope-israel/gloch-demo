@@ -2,11 +2,11 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Menu } from 'lucide-react';
 import { Logo } from './Logo';
 import { NavLinks } from './NavLinks';
-import { ThemeToggle } from './ThemeToggle';
 import { MobileMenu } from './MobileMenu';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
@@ -40,14 +40,14 @@ export function Navbar() {
 
             <div className="hidden items-center gap-8 md:flex">
               <NavLinks />
-              <ThemeToggle />
-              <Button variant="primary" size="sm">
-                Book Consultation
-              </Button>
+              <Link href="/contact">
+                <Button variant="primary" size="sm">
+                  Book Consultation
+                </Button>
+              </Link>
             </div>
 
             <div className="flex items-center gap-4 md:hidden">
-              <ThemeToggle />
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
                 aria-label="Open menu"
