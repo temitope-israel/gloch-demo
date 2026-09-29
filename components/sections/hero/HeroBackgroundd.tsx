@@ -12,7 +12,7 @@ interface HeroBackgroundProps {
 
 export function HeroBackground({ selectedIndex }: HeroBackgroundProps) {
   // Extract just the images from the main slides data
-  const currentImageUrl = heroSlides[selectedIndex].image;
+  // const currentImageUrl = heroSlides[selectedIndex].image;
   const currentAltText = heroSlides[selectedIndex].headline;
 
   return (
@@ -30,7 +30,7 @@ export function HeroBackground({ selectedIndex }: HeroBackgroundProps) {
           }}
           className="absolute inset-0 h-full w-full"
         >
-          <Image
+          {/* <Image
             src={currentImageUrl}
             alt={currentAltText}
             fill
@@ -47,7 +47,7 @@ export function HeroBackground({ selectedIndex }: HeroBackgroundProps) {
                 // This basic motion approach is often smoother.
               }
             }
-          />
+          /> */}
         </motion.div>
       </AnimatePresence>
 
@@ -70,5 +70,3 @@ export function HeroBackground({ selectedIndex }: HeroBackgroundProps) {
     </div>
   );
 }
-
-
