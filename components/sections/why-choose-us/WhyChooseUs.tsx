@@ -31,7 +31,7 @@ export function WhyChooseUs() {
           </div>
 
           {/* Right Stacked Minimal List */}
-          <div className="flex flex-col gap-6 lg:col-span-7">
+          <div className="grid grid-cols-2 gap-6 lg:col-span-7">
             {whyChooseUsItems.map((item, index) => {
               const Icon = item.icon;
               const indexFormatted = String(index + 1).padStart(2, '0');
@@ -43,7 +43,7 @@ export function WhyChooseUs() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.7, delay: index * 0.1 }}
-                  className="group bg-surface hover:border-gold/50 relative flex items-start gap-6 rounded-2xl border border-[--color-border] p-8 transition-all duration-500 hover:shadow-xl"
+                  className="group bg-surface hover:border-gold/50 relative flex items-start gap-6 rounded-2xl border border-gold p-6 transition-all duration-500 hover:shadow-xl"
                 >
                   <span className="text-gold/60 group-hover:text-gold font-mono text-sm font-semibold transition-colors duration-300">
                     {indexFormatted}

@@ -1,245 +1,190 @@
 // components/sections/hero/Hero.tsx
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
-import Image from 'next/image';
-
 import { Container } from '@/components/ui/Container';
 import { heroSlides } from '@/constants/hero';
-import { stats } from '@/constants/stats';
-import { StatCounter } from '@/components/sections/stats/StatCounter';
-import { buttonVariants } from '@/components/ui/button-variants';
-
-const fadeUpVariant = {
-  initial: { opacity: 0, y: 24, filter: 'blur(4px)' },
-  animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
-  exit: { opacity: 0, y: -20, filter: 'blur(4px)' },
-};
 
 export function Hero() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
-  // Initialize Embla Carousel for slide progression
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 }, [
-    Autoplay({ delay: 6000, stopOnInteraction: false, playOnInit: true }),
-  ]);
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % heroSlides.length);
+  };
 
-  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
-  const scrollTo = useCallback((index: number) => emblaApi && emblaApi.scrollTo(index), [emblaApi]);
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
+  const handleVideoEnded = () => {
+    handleNext();
+  };
 
   useEffect(() => {
-    if (!emblaApi) return;
-    onSelect();
-    emblaApi.on('select', onSelect);
-    emblaApi.on('reInit', onSelect);
-  }, [emblaApi, onSelect]);
-
-  const currentSlide = heroSlides[selectedIndex];
+    videoRefs.current.forEach((video, index) => {
+      if (!video) return;
+      if (index === activeIndex) {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, [activeIndex]);
 
   return (
     <section
       id="home"
-      className="relative flex min-h-[92vh] w-full items-center overflow-hidden bg-zinc-950 py-24 lg:min-h-screen"
+      className="relative flex h-screen w-full flex-col justify-end overflow-hidden bg-[#0A0A0A] pb-20"
     >
-      {/* 1. DIRECT BACKGROUND IMAGE RENDER (Smooth Cross-fade) */}
-      <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-zinc-950">
-        {/* Removing mode="wait" prevents the black flash by cross-fading images */}
-        <AnimatePresence initial={false}>
-          <motion.div
-            key={heroSlides[selectedIndex].id || selectedIndex}
-            initial={{ opacity: 0, scale: 1.08 }}
-            animate={{ opacity: 1, scale: 1.03 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0 h-full w-full"
-          >
-            <Image
-              src={heroSlides[selectedIndex].image}
-              alt={heroSlides[selectedIndex].headline}
-              fill
-              priority
-              sizes="100vw"
-              className="pointer-events-none object-cover object-center select-none"
+      {/* 1. PERSISTENT VIDEO STACK */}
+      <div className="absolute inset-0 z-0 h-full w-full">
+        {heroSlides.map((slide, index) => {
+          const isActive = activeIndex === index;
+          return (
+            <div
+              key={slide.id}
+              className={`absolute inset-0 h-full w-full transition-opacity duration-1200 ease-in-out ${
+                isActive ? 'z-10 opacity-100' : 'pointer-events-none z-0 opacity-0'
+              }`}
+            >
+              <video
+                ref={(el) => {
+                  videoRefs.current[index] = el;
+                }}
+                src={slide.video}
+                poster={slide.poster}
+                autoPlay={index === 0}
+                muted
+                playsInline
+                onEnded={handleVideoEnded}
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
+          );
+        })}
+
+        {/* Ambient Dark Gradients */}
+        <div className="pointer-events-none absolute inset-0 z-10 bg-black/25" />
+        <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#0A0A0A]/35 via-transparent to-black/30" />
+      </div>
+
+      {/* 2. CENTERED BOTTOM SLIDER CONTROLS (3 SMALL SQUARES) */}
+      <div className="pointer-events-auto absolute bottom-8 left-1/2 z-40 flex -translate-x-1/2 items-center gap-2.5">
+        {heroSlides.map((_, index) => {
+          const isActive = activeIndex === index;
+          return (
+            <button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              className={`h-1.5 w-1.5 transition-all duration-500 focus:outline-none ${
+                isActive
+                  ? 'scale-110 bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)]'
+                  : 'bg-white/40 hover:bg-white/70'
+              }`}
             />
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Gradient Overlays for Text Legibility */}
-        <div className="absolute inset-0 z-10 bg-zinc-950/20" />
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-zinc-950/30 via-zinc-950/60 to-transparent" />
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-zinc-950/30 via-transparent to-transparent" />
+          );
+        })}
       </div>
 
-      {/* Hidden Embla Carousel ref to drive timer state smoothly */}
-      <div className="hidden" ref={emblaRef}>
-        <div className="flex">
-          {heroSlides.map((slide) => (
-            <div key={slide.id} className="min-w-full" />
-          ))}
+      {/* 3. MAIN CONTENT AREA + INTEGRATED GRADIENT LINES */}
+      <Container className="relative z-30 mb-6 w-full">
+        {/* Absolute Grid Lines */}
+        <div className="pointer-events-none absolute inset-0 z-50 hidden grid-cols-3 md:grid">
+          <div className="relative h-full">
+            <div
+              className="absolute right-0 bottom-0 h-full w-[1px]"
+              style={{
+                background:
+                  'linear-gradient(to bottom, transparent 60%, rgba(255, 255, 255, 0.45) 85%)',
+              }}
+            />
+          </div>
+          <div className="relative h-full">
+            <div
+              className="absolute right-0 bottom-0 h-full w-[1px]"
+              style={{
+                background:
+                  'linear-gradient(to bottom, transparent 60%, rgba(255, 255, 255, 0.45) 85%)',
+              }}
+            />
+          </div>
+          <div className="h-full" />
         </div>
-      </div>
 
-      {/* 2. DYNAMIC TEXT CONTENT */}
-      <Container className="relative z-20 w-full">
-        <div className="grid grid-cols-1 items-center  gap-12 lg:grid-cols-12">
-          <div className="max-w-3xl lg:col-span-8">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentSlide.id}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                /* Stagger increased by 20% (0.1 -> 0.12) */
-                transition={{ staggerChildren: 0.12 }}
-                className="flex flex-col items-start"
+        {/* 3-Column Interactive Grid */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          {heroSlides.map((slide, index) => {
+            const isActive = activeIndex === index;
+
+            return (
+              <div
+                key={slide.id}
+                onClick={() => setActiveIndex(index)}
+                className="relative flex cursor-pointer flex-col justify-end px-4 sm:px-6"
               >
-                {/* Eyebrow */}
+                {/* PERSISTENT COLUMN TAB TITLE */}
                 <motion.div
-                  variants={fadeUpVariant}
-                  /* Duration increased by 20% (0.6 -> 0.72) */
-                  transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
-                  className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1 backdrop-blur-md"
+                  layout
+                  transition={{
+                    duration: 1.2,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="z-20"
                 >
-                  <span className="bg-gold h-1.5 w-1.5 animate-pulse rounded-full" />
-                  <span className="text-gold text-xs font-semibold tracking-[0.25em] uppercase">
-                    {currentSlide.eyebrow}
+                  <span
+                    className={`font-serif text-lg font-normal transition-colors duration-500 ${
+                      isActive ? 'text-white' : 'text-white/70 hover:text-white'
+                    }`}
+                  >
+                    {slide.tabTitle}
                   </span>
                 </motion.div>
 
-                {/* Headline */}
-                <motion.h1
-                  variants={fadeUpVariant}
-                  /* Duration increased by 20% (0.7 -> 0.84) */
-                  transition={{ duration: 0.84, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-serif text-4xl leading-[1.1] font-light tracking-tight text-white antialiased sm:text-5xl md:text-6xl lg:text-7xl"
-                >
-                  {currentSlide.headline}
-                </motion.h1>
+                {/* SLIDING MAIN HEADLINE & CTA UNDERNEATH */}
+                <AnimatePresence mode="wait">
+                  {isActive && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -15, height: 0 }}
+                      animate={{ opacity: 1, y: 0, height: 'auto' }}
+                      exit={{
+                        opacity: 0,
+                        y: -10,
+                        height: 0,
+                        transition: { duration: 0.4, ease: 'easeInOut' },
+                      }}
+                      transition={{
+                        duration: 1.2,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                      className="mt-3 flex flex-col items-start overflow-hidden"
+                    >
+                      {/* Eyebrow / Sub-headline */}
+                      {slide.eyebrow && (
+                        <span className="mb-2 font-sans text-xs font-medium tracking-wide text-white/90">
+                          {slide.eyebrow}
+                        </span>
+                      )}
 
-                {/* Subheading */}
-                <motion.p
-                  variants={fadeUpVariant}
-                  /* Duration increased by 20% (0.7 -> 0.84) */
-                  transition={{ duration: 0.84, ease: [0.16, 1, 0.3, 1] }}
-                  className="mt-6 max-w-xl font-sans text-base leading-relaxed font-light tracking-wide text-zinc-300/90 md:text-lg"
-                >
-                  {currentSlide.subheading}
-                </motion.p>
+                      {/* Main Headline */}
+                      <h1 className="font-serif text-3xl leading-tight font-normal tracking-tight text-[#FAFAF8] sm:text-4xl lg:text-5xl">
+                        {slide.headline}
+                      </h1>
 
-                {/* CTAs */}
-                <motion.div
-                  variants={fadeUpVariant}
-                  /* Duration increased by 20% (0.7 -> 0.84) */
-                  transition={{ duration: 0.84, ease: [0.16, 1, 0.3, 1] }}
-                  className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center"
-                >
-                  <a
-                    href={currentSlide.primaryCta.href}
-                    className={buttonVariants({
-                      variant: 'primary',
-                      size: 'lg',
-                      className:
-                        'bg-gold hover:bg-gold-dark shadow-gold/15 rounded-full px-8 py-4 font-sans font-medium tracking-wide text-zinc-950 shadow-lg transition-all duration-300 hover:scale-[1.02]',
-                    })}
-                  >
-                    {currentSlide.primaryCta.label}
-                  </a>
-
-                  <a
-                    href={currentSlide.secondaryCta.href}
-                    className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-7 py-3.5 font-sans text-sm font-medium tracking-wider text-white backdrop-blur-md transition-all duration-300 hover:border-white/30 hover:bg-white/10"
-                  >
-                    {currentSlide.secondaryCta.label}
-                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </a>
-                </motion.div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* 3. NAVIGATION CONTROLS */}
-        <div className="mt-12 flex items-center justify-between border-t border-white/10 pt-6">
-          <div className="flex items-center gap-3">
-            {heroSlides.map((slide, index) => (
-              <button
-                key={slide.id}
-                onClick={() => scrollTo(index)}
-                className="group relative flex h-8 items-center focus:outline-none"
-                aria-label={`Go to slide ${index + 1}`}
-              >
-                <div
-                  className={`h-1 rounded-full transition-all duration-500 ${
-                    selectedIndex === index
-                      ? 'bg-gold w-12'
-                      : 'w-4 bg-white/30 group-hover:bg-white/60'
-                  }`}
-                />
-              </button>
-            ))}
-            <span className="ml-3 font-mono text-xs font-medium text-zinc-400">
-              0{selectedIndex + 1} / 0{heroSlides.length}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={scrollPrev}
-              className="hover:border-gold hover:text-gold flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-zinc-900/40 text-white backdrop-blur-md transition-all"
-              aria-label="Previous Slide"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              onClick={scrollNext}
-              className="hover:border-gold hover:text-gold flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-zinc-900/40 text-white backdrop-blur-md transition-all"
-              aria-label="Next Slide"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
+                      {/* Bordered Button */}
+                      <a
+                        href={slide.cta.href}
+                        className="mt-6 inline-block border border-white/80 bg-black/20 px-6 py-2.5 font-sans text-[11px] font-semibold tracking-widest text-[#FAFAF8] uppercase backdrop-blur-xs transition-all duration-300 hover:border-[#C9A227] hover:bg-[#C9A227] hover:text-[#0A0A0A]"
+                      >
+                        {slide.cta.label}
+                      </a>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
         </div>
       </Container>
-
-      {/* 4. FLOATING STAT CARDS (Uses constants/stats.ts & StatCounter.tsx) */}
-      <div className="absolute top-1/2 right-8 z-20 hidden -translate-y-1/2 flex-col gap-4 lg:flex">
-        {stats.map((stat, i) => (
-          <StatCounter
-            key={stat.id}
-            value={stat.value}
-            suffix={stat.suffix}
-            label={stat.label}
-            delay={0.4 + i * 0.12}
-          />
-        ))}
-      </div>
-
-      {/* 5. SCROLL INDICATOR */}
-      <div className="absolute bottom-4 left-1/2 z-20 -translate-x-1/2">
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="group flex cursor-pointer flex-col items-center gap-1"
-        >
-          <span className="font-sans text-[10px] font-medium tracking-[0.25em] text-zinc-500 uppercase transition-colors group-hover:text-white">
-            Scroll
-          </span>
-          <ChevronDown
-            className="h-4 w-4 text-zinc-500 transition-colors group-hover:text-white"
-            aria-hidden
-          />
-        </motion.div>
-      </div>
     </section>
   );
 }

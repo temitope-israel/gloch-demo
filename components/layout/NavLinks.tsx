@@ -33,7 +33,7 @@ export function NavLinks() {
               <Link
                 href={entry.href || '#'}
                 className={`nav-link hover:text-gold text-sm font-medium transition-colors duration-200 ${
-                  isOpen ? 'text-gold' : 'text-white/85'
+                  isOpen ? 'text-gold' : 'text-white'
                 }`}
                 onClick={() => setOpenIndex(null)}
               >

@@ -33,17 +33,19 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 py-20 sm:grid-cols-2 lg:grid-cols-5 lg:py-24">
           {/* Column 1: Brand Identifier Panel (Spans 2 columns for comfortable type layouts) */}
           <div className="pr-0 lg:col-span-2 lg:pr-12">
-            <Link
-              href="#home"
-              className="relative block h-10 w-[76px] transition-opacity duration-300 hover:opacity-80"
-            >
-              <Image
-                src="/logo.png"
-                alt="Gloch Stylistic Limited"
-                fill
-                className="object-contain brightness-100 filter"
-              />
-            </Link>
+            <div className="flex items-center justify-center">
+              <Link
+                href="#home"
+                className="relative flex h-24 w-[120px] transition-opacity duration-300 hover:opacity-80"
+              >
+                <Image
+                  src="/logo.png"
+                  alt="Gloch Stylistic Limited"
+                  fill
+                  className="object-contain brightness-100 filter"
+                />
+              </Link>
+            </div>
             <p className="text-small text-warm-gray-400 mt-6 max-w-sm leading-relaxed font-light tracking-wide">
               Trusted real estate management and development, built on transparency, timeless
               architecture, and definitive precision.
