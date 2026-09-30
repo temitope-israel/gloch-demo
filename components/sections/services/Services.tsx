@@ -1,7 +1,9 @@
-// components/sections/services/Services.tsx
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { buttonVariants } from '@/components/ui/button-variants';
 import { ServiceRow } from './ServiceRow';
 import { services } from '@/constants/services';
 
@@ -34,7 +36,20 @@ export function Services() {
           ))}
         </div>
 
-      
+        {/* Bottom CTA Section */}
+        <div className="mt-20 flex justify-center text-center md:mt-28">
+          <Link
+            href="/#contact"
+            className={buttonVariants({
+              variant: 'primary',
+              size: 'lg',
+              className: 'group hover:shadow-gold/20 gap-2 tracking-wide shadow-md',
+            })}
+          >
+            <span>Learn More</span>
+            <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+        </div>
       </Container>
     </Section>
   );
