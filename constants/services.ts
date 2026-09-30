@@ -25,12 +25,12 @@ export const services: Service[] = [
     image: '/services/property-development.webp',
     cta: { label: 'Learn More', href: '#contact' },
   },
-  {
-    id: 'property-maintenance',
-    title: 'Property Maintenance',
-    description:
-      'Our comprehensive maintenance services ensure your property remains in top condition, minimizing downtime and maximizing tenant satisfaction.',
-    image: '/services/property-maintenance.jpg',
-    cta: { label: 'Learn More', href: '#contact' },
-  },
+  // {
+  //   id: 'property-maintenance',
+  //   title: 'Property Maintenance',
+  //   description:
+  //     'Our comprehensive maintenance services ensure your property remains in top condition, minimizing downtime and maximizing tenant satisfaction.',
+  //   image: '/services/property-maintenance.jpg',
+  //   cta: { label: 'Learn More', href: '#contact' },
+  // },
 ]

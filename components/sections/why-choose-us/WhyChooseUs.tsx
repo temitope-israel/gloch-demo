@@ -10,21 +10,23 @@ export function WhyChooseUs() {
   return (
     <Section className="bg-background text-foreground relative border-t border-[--color-border] py-28 transition-colors duration-300">
       <Container>
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
+        <div className="flex flex-col gap-16 lg:grid-cols-12">
           {/* Left Sticky Editorial Column */}
           <div className="lg:sticky lg:top-32 lg:col-span-5 lg:h-fit">
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1 backdrop-blur-md">
-              <span className="bg-gold h-1.5 w-1.5 animate-pulse rounded-full" />
-              <span className="text-gold text-xs font-semibold tracking-[0.25em] uppercase">
-                Why Choose Gloch
-              </span>
+            <div className="flex w-full justify-center">
+              <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1 text-center backdrop-blur-md">
+                <span className="bg-gold h-1.5 w-1.5 animate-pulse rounded-full" />
+                <span className="text-gold text-xs font-semibold tracking-[0.25em] uppercase">
+                  WELCOME TO GLOCH STYLISTICS LIMITED
+                </span>
+              </div>
             </div>
 
-            <h2 className="text-foreground mt-6 font-serif text-4xl leading-[1.15] font-light tracking-tight antialiased sm:text-5xl">
+            <h2 className="text-foreground mt-6 font-serif text-4xl leading-[1.15] font-light tracking-tight antialiased sm:text-5xl text-center">
               Built on Trust, Backed by Experience
             </h2>
 
-            <p className="text-warm-gray-700 mt-6 font-sans text-base leading-relaxed font-light tracking-wide dark:text-zinc-300">
+            <p className="text-warm-gray-700 mt-6 font-sans text-base leading-relaxed font-light tracking-wide dark:text-zinc-300 text-center">
               We combine deep market intelligence with uncompromising transparency, ensuring every
               property decision you make is clear, informed, and lasting.
             </p>
