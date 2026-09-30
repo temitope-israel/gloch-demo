@@ -6,5 +6,5 @@ export const ctaContent = {
   supportingText:
     'Whether you\'re buying, selling, or looking for expert property management, our team is ready to guide you with clarity and confidence.',
   cta: { label: 'Book a Consultation', href: '/contact' },
-  backgroundImage: '/hero/hero-2.jpg',
+  backgroundImage: '/hero/hero-3.jpg',
 } as const

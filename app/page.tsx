@@ -28,7 +28,13 @@ export default function Home() {
       {/* <Stats /> */}
       <WhyChooseUs />
       <Services />
-      <CTA />
+      <CTA
+        id="consultation"
+        eyebrow="Exclusive Consultation"
+        headline="Ready to Find Your Next Investment?"
+        supportingText="Schedule a private viewing with our luxury portfolio advisors."
+        cta={{ label: 'Book a Viewing', href: '/contact' }}
+      />
       <FeaturedProperties />
       <About />
       <Testimonials />
