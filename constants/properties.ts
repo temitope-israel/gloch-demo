@@ -77,4 +77,4 @@ export const properties: Property[] = [
 // Homepage only shows a curated subset — the "View All Properties" button
 // would eventually link to a full /properties listing page (out of scope
 // for this demo, but the data structure already supports it).
-export const featuredProperties = properties.slice(0, 3)
+export const featuredProperties = properties.slice(0, 4)

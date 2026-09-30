@@ -1,6 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
@@ -8,29 +10,29 @@ import { PropertyCard } from './PropertyCard';
 import { buttonVariants } from '@/components/ui/button-variants';
 import { featuredProperties } from '@/constants/properties';
 
-const containerVariants = {
-  animate: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
-};
-
-const cardVariants = {
-  initial: { opacity: 0, y: 32 },
-  animate: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-  },
-} as const;
-
 export function FeaturedProperties() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (!scrollContainerRef.current) return;
+    const { scrollLeft, clientWidth } = scrollContainerRef.current;
+
+    const scrollAmount = clientWidth * 0.4;
+    const targetScroll =
+      direction === 'left' ? scrollLeft - scrollAmount : scrollLeft + scrollAmount;
+
+    scrollContainerRef.current.scrollTo({
+      left: targetScroll,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <Section
       id="properties"
-      className=" text-foreground overflow-hidden transition-colors duration-300"
+      className="bg-background text-foreground relative overflow-x-hidden py-20 transition-colors duration-300"
     >
+      {/* Title & Description strictly inside Container bounds */}
       <Container>
         <SectionHeading
           eyebrow="Curated Portfolio"
@@ -39,102 +41,63 @@ export function FeaturedProperties() {
           align="center"
           className="mx-auto"
         />
+      </Container>
 
-        {/* Tall showcase grid matching full-height vertical property cards */}
-        <motion.div
-          variants={containerVariants}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, amount: 0.1 }}
-          className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+      {/*
+        Full-Width Track Container with Floating Arrows
+      */}
+      <div className="relative mt-12 w-full">
+        {/* Floating Arrow Left - Pinned near left container margin */}
+        <button
+          onClick={() => scroll('left')}
+          aria-label="Scroll left"
+          className="hover:text-gold absolute top-1/2 left-4 z-30 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-black/90 sm:left-8 md:left-12 lg:left-[calc((100vw-min(100vw,1280px))/2+1.5rem)]"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+
+        {/* Floating Arrow Right - Pinned to the right viewport edge */}
+        <button
+          onClick={() => scroll('right')}
+          aria-label="Scroll right"
+          className="hover:text-gold absolute top-1/2 right-4 z-30 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-black/90"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
+
+        {/*
+          Asymmetric Scroll Track:
+          - Left padding dynamically aligns the 1st card with the <Container> grid
+          - Right side has 0 padding (pr-0) so cards bleed edge-to-edge off the right viewport
+          - [scrollbar-width:none] & [&::-webkit-scrollbar]:hidden eliminate the horizontal scrollbar
+        */}
+        <div
+          ref={scrollContainerRef}
+          className="ml-auto flex w-[90vw] snap-x snap-mandatory [scrollbar-width:none] gap-2.5 overflow-x-auto scroll-smooth pr-0 pl-0 [&::-webkit-scrollbar]:hidden"
         >
           {featuredProperties.map((property) => (
-            <motion.div key={property.id} variants={cardVariants}>
+            <div
+              key={property.id}
+              className="w-[65vw] min-w-[65vw] flex-shrink-0 snap-start sm:w-[40vw] sm:min-w-[40vw] md:w-[28vw] md:min-w-[28vw] lg:w-[18vw] lg:min-w-[18vw] xl:w-[25vw] xl:min-w-[25vw]"
+            >
               <PropertyCard property={property} />
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
+      </div>
 
-        {/* Bottom CTA trigger button */}
-        <div className="mt-16 flex justify-center">
-          <a href="/properties" className={buttonVariants({ variant: 'secondary', size: 'lg' })}>
+      {/* Bottom CTA Button */}
+      <Container>
+        <div className="mt-14 flex justify-center">
+          <Link
+            href="/properties"
+            className={buttonVariants({ variant: 'primary', size: 'lg' })}
+            style={{ borderRadius: 'var(--radius-button)' }}
+          >
             View All Properties
-          </a>
+          </Link>
         </div>
       </Container>
     </Section>
   );
 }
-
-// // components/sections/featured-properties/FeaturedProperties.tsx
-// 'use client';
-
-// import { motion } from 'framer-motion';
-// import { Container } from '@/components/ui/Container';
-// import { Section } from '@/components/ui/Section';
-// import { SectionHeading } from '@/components/ui/SectionHeading';
-// import { PropertyCard } from './PropertyCard';
-// import { buttonVariants } from '@/components/ui/button-variants';
-// import { featuredProperties } from '@/constants/properties';
-
-// const containerVariants = {
-//   animate: {
-//     transition: {
-//       staggerChildren: 0.1,
-//     },
-//   },
-// };
-
-// const cardVariants = {
-//   initial: { opacity: 0, y: 30 },
-//   animate: {
-//     opacity: 1,
-//     y: 0,
-//     transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-//   },
-// } as const;
-
-// export function FeaturedProperties() {
-//   return (
-//     <Section
-//       id="properties"
-//       className="bg-background text-foreground transition-colors duration-300"
-//     >
-//       <Container>
-//         <SectionHeading
-//           eyebrow="Curated Portfolio"
-//           title="Featured Projects"
-//           description="A curated selection of our current premium offerings across choice destinations."
-//           align="center"
-//           className="mx-auto"
-//         />
-
-//         {/* Properties presentation display grid matrix */}
-//         <motion.div
-//           variants={containerVariants}
-//           initial="initial"
-//           whileInView="animate"
-//           viewport={{ once: true, amount: 0.1 }}
-//           className="mt-20 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
-//         >
-//           {featuredProperties.map((property) => (
-//             <motion.div key={property.id} variants={cardVariants}>
-//               <PropertyCard property={property} />
-//             </motion.div>
-//           ))}
-//         </motion.div>
-
-//         {/* Bottom Call-To-Action trigger button zone */}
-//         <div className="mt-16 flex justify-center">
-//           <a
-//             href="#"
-//             className={buttonVariants({ variant: 'secondary', size: 'lg' })}
-//             style={{ borderRadius: 'var(--radius-button)' }}
-//           >
-//             View All Properties
-//           </a>
-//         </div>
-//       </Container>
-//     </Section>
-//   );
-// }
