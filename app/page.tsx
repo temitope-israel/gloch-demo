@@ -28,6 +28,7 @@ export default function Home() {
       {/* <Stats /> */}
       <WhyChooseUs />
       <Services />
+      <CTA />
       <FeaturedProperties />
       <About />
       <Testimonials />
