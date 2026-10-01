@@ -43,7 +43,6 @@ export const navItems: NavEntry[] = [
     ],
   },
   {label: "Media", href: "/media"},
-  {label: "Test", href: "/test"},
   { label: "Contact", href: "/contact" },
 ]
 
