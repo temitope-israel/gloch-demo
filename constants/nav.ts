@@ -20,6 +20,15 @@ function isGroup(entry: NavEntry): entry is NavGroup {
 export const navItems: NavEntry[] = [
   { label: "Home", href: "/" },
   {
+    label: "About Us",
+    // href: "/about", // <-- Direct route
+    items: [
+      { label: "Who We Are", href: "/about/who-we-are" },
+      { label: "CEO", href: "/about/ceo" },
+      { label: "Our Team", href: "/about/our-team" },
+    ],
+  },
+  {
     label: "Portfolio",
     href: "/portfolio", // <-- Added direct route
     items: [
@@ -33,15 +42,8 @@ export const navItems: NavEntry[] = [
       { label: "Sarrie Apartments", href: "/portfolio/sarrie-apartments" },
     ],
   },
-  {
-    label: "About Us",
-    // href: "/about", // <-- Direct route
-    items: [
-      { label: "Who We Are", href: "/about/who-we-are" },
-      { label: "CEO", href: "/about/ceo" },
-      { label: "Our Team", href: "/about/our-team" },
-    ],
-  },
+  {label: "Media", href: "/media"},
+  {label: "Test", href: "/test"},
   { label: "Contact", href: "/contact" },
 ]
 
