@@ -100,8 +100,8 @@ export default function CeoPage() {
           </FadeInView>
 
           {/* Overlays */}
-          <div className="absolute inset-0 z-10 bg-black/55" />
-          <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
+          {/* <div className="absolute inset-0 z-10 bg-black/15" />
+          <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/20 via-black/20 to-black/20" /> */}
         </div>
 
         {/* Layer 20: Centered Content */}

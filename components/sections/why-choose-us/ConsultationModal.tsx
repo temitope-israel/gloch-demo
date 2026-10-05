@@ -1,4 +1,3 @@
-// components/sections/why-choose-us/ConsultationModal.tsx
 'use client';
 
 import { useState } from 'react';
@@ -13,15 +12,14 @@ import {
   Mail,
   Phone,
   Home,
+  ChevronDown,
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
 interface ConsultationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  // Replace with your actual WhatsApp business number with country code (e.g. "2348012345678")
   whatsappNumber?: string;
-  // Replace with your business receiving email
   contactEmail?: string;
 }
 
@@ -37,7 +35,7 @@ export function ConsultationModal({
     fullName: '',
     email: '',
     phone: '',
-    serviceType: 'Acquisitions & Advisory',
+    serviceType: 'Property Acquisition',
     preferredDate: '',
     notes: '',
   });
@@ -52,7 +50,6 @@ export function ConsultationModal({
     e.preventDefault();
 
     if (submissionMethod === 'whatsapp') {
-      // WhatsApp formatting with bold syntax (*)
       const cleanPhone = whatsappNumber.replace(/\D/g, '');
       const formattedDate = formData.preferredDate || 'Not specified';
       const formattedNotes = formData.notes?.trim() || 'None provided';
@@ -77,7 +74,6 @@ _Sent via Gloch Stylistics Website_`;
       const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(waText)}`;
       window.open(whatsappUrl, '_blank');
     } else {
-      // Plain text formatting for email clients with standard line breaks
       const emailSubject = `Consultation Request: ${formData.fullName}`;
 
       const emailBody =
@@ -85,8 +81,8 @@ _Sent via Gloch Stylistics Website_`;
         `==================================================\r\n\r\n` +
         `CLIENT DETAILS\r\n` +
         `-------------\r\n` +
-        `Full Name:      ${formData.fullName}\r\n` +
-        `Email Address:  ${formData.email}\r\n` +
+        `Full Name:       ${formData.fullName}\r\n` +
+        `Email Address:   ${formData.email}\r\n` +
         `Phone / WhatsApp: ${formData.phone}\r\n\r\n` +
         `APPOINTMENT DETAILS\r\n` +
         `-------------------\r\n` +
@@ -111,7 +107,7 @@ _Sent via Gloch Stylistics Website_`;
       fullName: '',
       email: '',
       phone: '',
-      serviceType: 'Acquisitions & Advisory',
+      serviceType: 'Property Acquisition',
       preferredDate: '',
       notes: '',
     });
@@ -121,7 +117,7 @@ _Sent via Gloch Stylistics Website_`;
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-10">
           {/* Backdrop Blur Overlay */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -137,33 +133,37 @@ _Sent via Gloch Stylistics Website_`;
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', duration: 0.5, bounce: 0.1 }}
-            className="text-foreground relative z-10 max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-[--color-border] bg-white p-6 shadow-2xl sm:p-8"
+            className="text-foreground relative z-10 max-h-[90dvh] w-full max-w-xl overflow-y-auto rounded-2xl border border-[--color-border] bg-white p-4 shadow-2xl sm:p-8"
           >
             {/* Close Button */}
             <button
               onClick={handleResetAndClose}
-              className="text-warm-gray-500 hover:bg-warm-gray-50 hover:text-foreground absolute top-5 right-5 rounded-full p-2 transition-colors"
+              className="text-warm-gray-500 hover:bg-warm-gray-100 hover:text-foreground absolute top-3 right-3 rounded-full p-2 transition-colors sm:top-5 sm:right-5"
               aria-label="Close Modal"
             >
               <X className="h-5 w-5" />
             </button>
 
             {isSubmitted ? (
-              <div className="py-10 text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
-                  <CheckCircle className="h-8 w-8" />
+              <div className="py-8 text-center sm:py-10">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 sm:h-16 sm:w-16">
+                  <CheckCircle className="h-7 w-7 sm:h-8 sm:w-8" />
                 </div>
-                <h3 className="text-foreground font-serif text-2xl font-light sm:text-3xl">
+                <h3 className="text-foreground font-serif text-xl font-light sm:text-3xl">
                   Consultation Initiated
                 </h3>
-                <p className="text-warm-gray-700 mt-3 font-sans text-sm leading-relaxed">
+                <p className="text-warm-gray-700 mt-3 font-sans text-xs leading-relaxed sm:text-sm">
                   Thank you, <span className="font-semibold">{formData.fullName}</span>. Your
                   request details have been prepared for{' '}
                   {submissionMethod === 'whatsapp' ? 'WhatsApp' : 'Email'}. Our advisory team will
                   review your requirements and reach out shortly.
                 </p>
-                <div className="mt-8 flex justify-center">
-                  <Button variant="primary" onClick={handleResetAndClose}>
+                <div className="mt-6 flex justify-center sm:mt-8">
+                  <Button
+                    variant="primary"
+                    onClick={handleResetAndClose}
+                    className="w-full sm:w-auto"
+                  >
                     Done
                   </Button>
                 </div>
@@ -171,48 +171,51 @@ _Sent via Gloch Stylistics Website_`;
             ) : (
               <>
                 {/* Header */}
-                <div className="pr-6 text-center sm:text-left">
-                  <div className="inline- bg-gold items-center justify-center gap-2 rounded-xl border border-[--color-gold]/30 px-3 py-3 text-center text-xs font-semibold tracking-widest text-white uppercase">
+                <div className="pt-2 text-center sm:pt-0">
+                  <span className="inline-block rounded-lg bg-[--color-gold] px-3 py-1.5 text-[10px] font-semibold tracking-wider text-white uppercase sm:text-xs">
                     Gloch Stylistics Limited
-                  </div>
-                  <h2 className="text-foreground mt-3 text-center font-serif text-xl font-light sm:text-xl">
+                  </span>
+                  <h2 className="text-foreground mt-3 font-serif text-lg font-light sm:text-2xl">
                     Book a Private Consultation
                   </h2>
-                  <p className="text-warm-gray-700 text- mt-1 text-center font-sans sm:text-sm">
+                  <p className="text-warm-gray-600 mt-1 font-sans text-xs sm:text-sm">
                     Connect with our luxury real estate specialists at Gloch Stylistics.
                   </p>
                 </div>
 
                 {/* Submission Channel Toggle */}
-                <div className="bg-warm-gray-50 border-warm-gray-100 mt-6 grid grid-cols-2 gap-2 rounded-xl border p-1">
+                <div className="bg-warm-gray-100/80 mt-5 grid grid-cols-2 gap-1 rounded-xl p-1 sm:mt-6">
                   <button
                     type="button"
                     onClick={() => setSubmissionMethod('whatsapp')}
-                    className={`flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-xs font-semibold transition-all ${
+                    className={`flex items-center justify-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-semibold transition-all sm:gap-2 sm:py-2.5 ${
                       submissionMethod === 'whatsapp'
-                        ? 'w-xl bg-emerald-600 text-white shadow-md'
-                        : 'text-warm-gray-700 hover:text-foreground hidden'
+                        ? 'bg-emerald-600 text-white shadow-sm'
+                        : 'text-warm-gray-600 hover:text-foreground'
                     }`}
                   >
-                    <MessageSquare className="h-4 w-4" />
-                    Submit via WhatsApp
+                    <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    <span>WhatsApp</span>
                   </button>
-                  {/* <button
+                  <button
                     type="button"
                     onClick={() => setSubmissionMethod('email')}
-                    className={`flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-xs font-semibold transition-all ${
+                    className={`flex items-center justify-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-semibold transition-all sm:gap-2 sm:py-2.5 ${
                       submissionMethod === 'email'
-                        ? 'bg-[--color-gold] text-white shadow-md'
-                        : 'text-warm-gray-700 hover:text-foreground'
+                        ? 'bg-[--color-gold] text-white shadow-sm'
+                        : 'text-warm-gray-600 hover:text-foreground'
                     }`}
                   >
-                    <Mail className="h-4 w-4" />
-                    Submit via Email
-                  </button> */}
+                    <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    <span>Email</span>
+                  </button>
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="mt-6 space-y-4 font-sans">
+                <form
+                  onSubmit={handleSubmit}
+                  className="mt-5 space-y-3.5 font-sans sm:mt-6 sm:space-y-4"
+                >
                   {/* Full Name */}
                   <div>
                     <label className="text-warm-gray-900 mb-1 block text-xs font-medium">
@@ -227,13 +230,13 @@ _Sent via Gloch Stylistics Website_`;
                         value={formData.fullName}
                         onChange={handleChange}
                         placeholder="e.g. John Doe"
-                        className="border-warm-gray-300 text-foreground w-full rounded-xl border bg-white py-2.5 pr-4 pl-10 text-sm transition-all focus:border-[--color-gold] focus:ring-1 focus:ring-[--color-gold] focus:outline-none"
+                        className="border-warm-gray-300 text-foreground w-full rounded-xl border bg-white py-2.5 pr-4 pl-10 text-base transition-all focus:border-[--color-gold] focus:ring-1 focus:ring-[--color-gold] focus:outline-none sm:text-sm"
                       />
                     </div>
                   </div>
 
                   {/* Email & Phone */}
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 sm:gap-4">
                     <div>
                       <label className="text-warm-gray-900 mb-1 block text-xs font-medium">
                         Email Address *
@@ -247,7 +250,7 @@ _Sent via Gloch Stylistics Website_`;
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="john@example.com"
-                          className="border-warm-gray-300 text-foreground w-full rounded-xl border bg-white py-2.5 pr-4 pl-10 text-sm transition-all focus:border-[--color-gold] focus:ring-1 focus:ring-[--color-gold] focus:outline-none"
+                          className="border-warm-gray-300 text-foreground w-full rounded-xl border bg-white py-2.5 pr-4 pl-10 text-base transition-all focus:border-[--color-gold] focus:ring-1 focus:ring-[--color-gold] focus:outline-none sm:text-sm"
                         />
                       </div>
                     </div>
@@ -265,14 +268,14 @@ _Sent via Gloch Stylistics Website_`;
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="+234 800 000 0000"
-                          className="border-warm-gray-300 text-foreground w-full rounded-xl border bg-white py-2.5 pr-4 pl-10 text-sm transition-all focus:border-[--color-gold] focus:ring-1 focus:ring-[--color-gold] focus:outline-none"
+                          className="border-warm-gray-300 text-foreground w-full rounded-xl border bg-white py-2.5 pr-4 pl-10 text-base transition-all focus:border-[--color-gold] focus:ring-1 focus:ring-[--color-gold] focus:outline-none sm:text-sm"
                         />
                       </div>
                     </div>
                   </div>
 
                   {/* Service Needed & Preferred Date */}
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 sm:gap-4">
                     <div>
                       <label className="text-warm-gray-900 mb-1 block text-xs font-medium">
                         Interest / Service
@@ -283,13 +286,14 @@ _Sent via Gloch Stylistics Website_`;
                           name="serviceType"
                           value={formData.serviceType}
                           onChange={handleChange}
-                          className="border-warm-gray-300 text-foreground w-full appearance-none rounded-xl border bg-white py-2.5 pr-4 pl-10 text-sm transition-all focus:border-[--color-gold] focus:ring-1 focus:ring-[--color-gold] focus:outline-none"
+                          className="border-warm-gray-300 text-foreground w-full appearance-none rounded-xl border bg-white py-2.5 pr-8 pl-10 text-base transition-all focus:border-[--color-gold] focus:ring-1 focus:ring-[--color-gold] focus:outline-none sm:text-sm"
                         >
                           <option value="Property Acquisition">Property Acquisition</option>
                           <option value="Investment Advisory">Investment Advisory</option>
                           <option value="Commercial Space">Commercial Leasing</option>
                           <option value="Property Valuation">Property Valuation</option>
                         </select>
+                        <ChevronDown className="text-warm-gray-500 pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2" />
                       </div>
                     </div>
 
@@ -304,7 +308,7 @@ _Sent via Gloch Stylistics Website_`;
                           name="preferredDate"
                           value={formData.preferredDate}
                           onChange={handleChange}
-                          className="border-warm-gray-300 text-foreground w-full rounded-xl border bg-white py-2.5 pr-4 pl-10 text-sm transition-all focus:border-[--color-gold] focus:ring-1 focus:ring-[--color-gold] focus:outline-none"
+                          className="border-warm-gray-300 text-foreground w-full rounded-xl border bg-white py-2.5 pr-4 pl-10 text-base transition-all focus:border-[--color-gold] focus:ring-1 focus:ring-[--color-gold] focus:outline-none sm:text-sm"
                         />
                       </div>
                     </div>
@@ -321,7 +325,7 @@ _Sent via Gloch Stylistics Website_`;
                       value={formData.notes}
                       onChange={handleChange}
                       placeholder="Tell us about the property type, location, or budget you have in mind..."
-                      className="border-warm-gray-300 text-foreground w-full rounded-xl border bg-white p-3 text-sm transition-all focus:border-[--color-gold] focus:ring-1 focus:ring-[--color-gold] focus:outline-none"
+                      className="border-warm-gray-300 text-foreground w-full rounded-xl border bg-white p-3 text-base transition-all focus:border-[--color-gold] focus:ring-1 focus:ring-[--color-gold] focus:outline-none sm:text-sm"
                     />
                   </div>
 

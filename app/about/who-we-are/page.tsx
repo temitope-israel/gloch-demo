@@ -110,8 +110,8 @@ export default function WhoWeArePage() {
           </div>
 
           {/* Overlays */}
-          <div className="absolute inset-0 z-10 bg-black/55" />
-          <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
+          <div className="absolute inset-0 z-10 bg-black/15" />
+          <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/15 via-black/15 to-black/20" />
         </div>
 
         {/* Layer 20: Centered Content */}
@@ -156,33 +156,66 @@ export default function WhoWeArePage() {
       </section>
 
       {/* ========================================================= */}
-      {/* 2. INTRO + VIDEO SECTION                                 */}
+      {/* 2. INTRO + VIDEO SECTION                                  */}
       {/* ========================================================= */}
-      <Section className="bg-background relative z-20 py-20 md:py-28">
+      <Section className="relative z-20 bg-white py-20 md:py-28">
         <Container>
-          <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-7">
-              <FadeInView delay={100}>
-                <span className="text-gold mb-3 block font-mono text-xs font-semibold tracking-widest uppercase">
-                  OUR ORIGIN
-                </span>
-                <p className="text-body-lg text-warm-gray-900 font-serif text-2xl leading-relaxed sm:text-3xl">
-                  {intro}
-                </p>
-              </FadeInView>
+          {/* Full-Width Origin Intro */}
+          <div className="mx-auto max-w-4xl text-center">
+            <FadeInView delay={100}>
+              <span className="text-gold mb-3 block font-mono text-xs font-semibold tracking-widest uppercase">
+                OUR ORIGIN
+              </span>
+              <p className="text-body-lg text-warm-gray-900 font-serif text-2xl leading-relaxed sm:text-3xl md:text-2xl">
+                {intro}
+              </p>
+            </FadeInView>
+          </div>
 
+          {/* Two-Column Layout: Video side-by-side with remaining text */}
+          <div className="mt-16 grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            {/* Column 1: Video Player */}
+            <FadeInView delay={200} animation="animate-scale-up">
+              <div className="border-warm-gray-200 bg-surface group relative overflow-hidden rounded-3xl border p-3 shadow-md transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
+                <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black">
+                  {videoUrl ? (
+                    <iframe
+                      src={videoUrl}
+                      title={videoTitle}
+                      className="h-full w-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <div className="text-warm-gray-400 flex h-full w-full items-center justify-center font-mono text-xs">
+                      [VIDEO PLAYER PLACEHOLDER]
+                    </div>
+                  )}
+                </div>
+                <div className="text-warm-gray-500 mt-3 flex items-center justify-between px-2 font-mono text-[10px]">
+                  <span className="text-gold flex items-center gap-1.5 font-semibold">
+                    <Play className="fill-gold text-gold h-3 w-3 transition-transform group-hover:scale-125" />
+                    {videoTitle}
+                  </span>
+                  <span>FEATURE FILM</span>
+                </div>
+              </div>
+            </FadeInView>
+
+            {/* Column 2: Bridge Text, Bullet Points, and Closing */}
+            <div className="flex flex-col justify-center space-y-6">
               {bridge && (
-                <FadeInView delay={200}>
-                  <p className="text-body-lg text-warm-gray-700 mt-5 leading-relaxed font-light">
+                <FadeInView delay={300}>
+                  <p className="text-body-lg text-warm-gray-700 leading-relaxed font-light">
                     {bridge}
                   </p>
                 </FadeInView>
               )}
 
               {bridgePoints && bridgePoints.length > 0 && (
-                <div className="border-gold/30 mt-6 space-y-3 border-l-2 pl-4">
+                <div className="border-gold/30 space-y-3 border-l-2 pl-4">
                   {bridgePoints.map((point, i) => (
-                    <FadeInView key={point} delay={300 + i * 100}>
+                    <FadeInView key={point} delay={400 + i * 100}>
                       <div className="text-warm-gray-800 flex items-start gap-3 text-sm font-medium">
                         <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
                         <span>{point}</span>
@@ -193,42 +226,12 @@ export default function WhoWeArePage() {
               )}
 
               {closing && (
-                <FadeInView delay={600}>
-                  <p className="text-body-lg text-warm-gray-700 mt-6 leading-relaxed font-light">
+                <FadeInView delay={700}>
+                  <p className="text-body-lg text-warm-gray-700 leading-relaxed font-light">
                     {closing}
                   </p>
                 </FadeInView>
               )}
-            </div>
-
-            {/* Video Frame */}
-            <div className="lg:col-span-5">
-              <FadeInView delay={250} animation="animate-scale-up">
-                <div className="border-warm-gray-200 bg-surface group relative overflow-hidden rounded-3xl border p-3 shadow-md transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
-                  <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black">
-                    {videoUrl ? (
-                      <iframe
-                        src={videoUrl}
-                        title={videoTitle}
-                        className="h-full w-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                    ) : (
-                      <div className="text-warm-gray-400 flex h-full w-full items-center justify-center font-mono text-xs">
-                        [VIDEO PLAYER PLACEHOLDER]
-                      </div>
-                    )}
-                  </div>
-                  <div className="text-warm-gray-500 mt-3 flex items-center justify-between px-2 font-mono text-[10px]">
-                    <span className="text-gold flex items-center gap-1.5 font-semibold">
-                      <Play className="fill-gold text-gold h-3 w-3 transition-transform group-hover:scale-125" />
-                      {videoTitle}
-                    </span>
-                    <span>FEATURE FILM</span>
-                  </div>
-                </div>
-              </FadeInView>
             </div>
           </div>
         </Container>
@@ -237,17 +240,17 @@ export default function WhoWeArePage() {
       {/* ========================================================= */}
       {/* 3. OUR PURPOSE SECTION                                   */}
       {/* ========================================================= */}
-      <Section className="bg-surface border-warm-gray-200/80 relative z-20 border-y py-20 md:py-28">
+      <Section className="bg-ink border-warm-gray-200/80 relative z-20 border-y py-20 md:py-28">
         <Container>
           <FadeInView>
             <span className="text-gold mb-2 block font-mono text-xs font-semibold tracking-widest uppercase">
               FOUNDATIONAL PHILOSOPHY
             </span>
-            <h2 className="text-h1 text-foreground font-serif text-3xl sm:text-4xl md:text-5xl">
+            <h2 className="text-h1 text-white font-serif text-3xl sm:text-4xl md:text-5xl">
               {purpose.title}
             </h2>
             {purpose.statement && (
-              <p className="text-warm-gray-700 mt-4 max-w-2xl text-base leading-relaxed font-light sm:text-lg">
+              <p className="text-white mt-4 max-w-2xl text-base leading-relaxed font-light sm:text-lg">
                 {purpose.statement}
               </p>
             )}

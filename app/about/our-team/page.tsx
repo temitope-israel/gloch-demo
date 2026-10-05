@@ -60,8 +60,8 @@ export default function OurTeamPage() {
           </div>
 
           {/* Dark Architectural Gradients */}
-          <div className="absolute inset-0 z-10 bg-black/35" />
-          <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/30 via-black/40 to-black/40" />
+          <div className="absolute inset-0 z-10 bg-black/10" />
+          <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/20 via-black/20 to-black/20" />
         </div>
 
         {/* Centered Main Hero Title Block */}
@@ -186,7 +186,7 @@ export default function OurTeamPage() {
 
                     <div className="space-y-2 sm:col-span-8">
                       <span className="text-gold font-mono text-[10px] font-bold tracking-wider uppercase">
-                         {member.role}
+                        {member.role}
                       </span>
                       <h3 className="text-ink group-hover:text-gold font-serif text-2xl font-medium transition-colors">
                         {member.name}
@@ -205,4 +205,3 @@ export default function OurTeamPage() {
     </main>
   );
 }
-

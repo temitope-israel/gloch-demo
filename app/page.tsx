@@ -7,6 +7,7 @@ import { Services } from '@/components/sections/services/Services';
 import { FeaturedProperties } from '@/components/sections/featured-properties/FeaturedProperties';
 import { About } from '@/components/sections/about/About';
 import { CTA } from '@/components/sections/cta/CTA';
+import { LifestyleGallery } from '@/components/sections/lifestyle-gallery/LiftestyleGallery';
 
 // Testimonials uses Embla + Autoplay — a meaningful chunk of JS that
 // doesn't need to be in the initial bundle, since it's far below the fold.
@@ -27,11 +28,12 @@ export default function Home() {
       <Hero />
       {/* <Stats /> */}
       <WhyChooseUs />
+      <LifestyleGallery />
       <Services />
       <CTA
         id="consultation"
         eyebrow="Exclusive Consultation"
-        headline="Ready to Find Your Next Investment?"
+        headline="Ready to Find Your Next Address?"
         supportingText="Schedule a private viewing with our luxury portfolio advisors."
         cta={{ label: 'Book a Viewing', href: '/contact' }}
       />

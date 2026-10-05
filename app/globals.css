@@ -53,6 +53,7 @@ html.lenis, html.lenis body {
 
 
   /*  Semantic Tokens (theme-aware, defined via CSS variables below) */
+  /* --color-background: var(--color-paper); */
   --color-background: var(--color-paper);
   --color-foreground: var(--color-ink);
   --color-surface: #FFFFFF;
