@@ -11,137 +11,148 @@ import { buttonVariants } from '@/components/ui/button-variants';
 import { featuredProperties } from '@/constants/properties';
 
 export function FeaturedProperties() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
-  // Monitor scroll position to show/hide arrows & update active index indicator
-  const handleScroll = () => {
-    if (!scrollContainerRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+  const extendedProperties = [...featuredProperties, ...featuredProperties, ...featuredProperties];
+  const totalItems = featuredProperties.length;
 
-    // Show left arrow only if user has scrolled away from the start
-    setCanScrollLeft(scrollLeft > 10);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [slideOffset, setSlideOffset] = useState(0);
 
-    // Show right arrow only if user hasn't reached the end
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
-
-    // Determine current active card index for pagination indicators
-    const cardWidth = scrollContainerRef.current.children[0]?.clientWidth || clientWidth;
-    const newIndex = Math.round(scrollLeft / cardWidth);
-    setActiveIndex(Math.min(newIndex, featuredProperties.length - 1));
+  const updateOffset = () => {
+    if (cardRef.current) {
+      const cardWidth = cardRef.current.offsetWidth;
+      // 0px gap on mobile; 16px (gap-4) on tablet/desktop for clean spacing
+      const gap = window.innerWidth < 640 ? 0 : 16;
+      setSlideOffset(cardWidth + gap);
+    }
   };
 
   useEffect(() => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
-
-    handleScroll(); // Initial check
-    el.addEventListener('scroll', handleScroll, { passive: true });
-    return () => el.removeEventListener('scroll', handleScroll);
+    updateOffset();
+    window.addEventListener('resize', updateOffset);
+    return () => window.removeEventListener('resize', updateOffset);
   }, []);
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (!scrollContainerRef.current) return;
-    const { scrollLeft, clientWidth } = scrollContainerRef.current;
-
-    const scrollAmount = clientWidth * 0.8;
-    const targetScroll =
-      direction === 'left' ? scrollLeft - scrollAmount : scrollLeft + scrollAmount;
-
-    scrollContainerRef.current.scrollTo({
-      left: targetScroll,
-      behavior: 'smooth',
-    });
+  const handleTransitionEnd = () => {
+    if (currentIndex >= totalItems) {
+      setIsTransitioning(false);
+      setCurrentIndex(currentIndex % totalItems);
+    } else if (currentIndex < 0) {
+      setIsTransitioning(false);
+      setCurrentIndex(totalItems + (currentIndex % totalItems));
+    }
   };
 
-  const scrollToProperty = (index: number) => {
-    if (!scrollContainerRef.current) return;
-    const card = scrollContainerRef.current.children[index] as HTMLElement;
-    if (card) {
-      scrollContainerRef.current.scrollTo({
-        left: card.offsetLeft,
-        behavior: 'smooth',
+  useEffect(() => {
+    if (!isTransitioning) {
+      const timer = requestAnimationFrame(() => {
+        setIsTransitioning(true);
       });
+      return () => cancelAnimationFrame(timer);
     }
+  }, [isTransitioning]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (!isTransitioning) return;
+    setCurrentIndex((prev) => (direction === 'right' ? prev + 1 : prev - 1));
   };
 
   return (
     <Section
       id="properties"
-      className="bg-background text-foreground relative overflow-x-hidden py-20 transition-colors duration-300"
+      className="bg-background text-foreground relative overflow-x-hidden py-12 transition-colors duration-300 sm:py-20"
     >
-      {/* Title & Description strictly inside Container bounds */}
       <Container>
         <SectionHeading
           eyebrow="Curated Portfolio"
           title="Featured Projects"
           description="A curated selection of our current premium offerings across choice destinations."
           align="center"
-          className="mx-auto"
         />
       </Container>
 
-      {/* Full-Width Track Container with Floating Arrows */}
-      <div className="relative mt-12 w-full">
-        {/* Floating Arrow Left - Hidden until user scrolls on mobile/desktop */}
-        {canScrollLeft && (
-          <button
-            onClick={() => scroll('left')}
-            aria-label="Scroll left"
-            className="hover:text-gold absolute top-1/2 left-2 z-30 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-black/90 sm:left-4 md:left-8 lg:left-[calc((100vw-min(100vw,1280px))/2+1.5rem)]"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-        )}
-
-        {/* Floating Arrow Right - Hidden when reached end */}
-        {canScrollRight && (
-          <button
-            onClick={() => scroll('right')}
-            aria-label="Scroll right"
-            className="hover:text-gold absolute top-1/2 right-2 z-30 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-black/90 sm:right-4"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </button>
-        )}
-
-        {/* Asymmetric Scroll Track */}
-        <div
-          ref={scrollContainerRef}
-          className="ml-auto flex w-full snap-x snap-mandatory [scrollbar-width:none] gap-2.5 overflow-x-auto scroll-smooth pr-0 pl-0 sm:w-[90vw] [&::-webkit-scrollbar]:hidden"
+      {/* Track Outer Wrapper */}
+      <div className="relative mt-8 w-full sm:mt-14">
+        {/* Left Chevron (Desktop) */}
+        <button
+          onClick={() => scroll('left')}
+          aria-label="Scroll left"
+          className="absolute top-1/2 left-2 z-30 hidden -translate-y-1/2 cursor-pointer text-white/90 drop-shadow-md transition-transform hover:scale-110 active:scale-95 sm:left-4 sm:flex lg:left-[calc((100vw-min(100vw,1280px))/2+1rem)]"
         >
-          {featuredProperties.map((property) => (
+          <ChevronLeft className="h-12 w-12 stroke-[0.85]" />
+        </button>
+
+        {/* Right Chevron (Desktop) */}
+        <button
+          onClick={() => scroll('right')}
+          aria-label="Scroll right"
+          className="absolute top-1/2 right-2 z-30 hidden -translate-y-1/2 cursor-pointer text-white/90 drop-shadow-md transition-transform hover:scale-110 active:scale-95 sm:right-4 sm:flex md:right-6"
+        >
+          <ChevronRight className="h-12 w-12 stroke-[0.85]" />
+        </button>
+
+        {/* Outer Padding Box: Aligns cards on left with container margin on tablet/desktop */}
+        <div className="pl-0 sm:pl-6 lg:pl-[calc((100vw-min(100vw,1280px))/2+2rem)]">
+          <div className="w-full overflow-hidden sm:w-[calc(100%+50vw)]" ref={containerRef}>
             <div
-              key={property.id}
-              className="w-[100vw] min-w-[100vw] flex-shrink-0 snap-start sm:w-[40vw] sm:min-w-[40vw] md:w-[28vw] md:min-w-[28vw] lg:w-[18vw] lg:min-w-[18vw] xl:w-[25vw] xl:min-w-[25vw]"
+              onTransitionEnd={handleTransitionEnd}
+              className={`flex gap-0 sm:gap-4 ${
+                isTransitioning
+                  ? 'transition-transform duration-700 ease-[0.16,1,0.3,1]'
+                  : 'transition-none'
+              }`}
+              style={{
+                transform: `translateX(-${currentIndex * slideOffset}px)`,
+              }}
             >
-              <PropertyCard property={property} />
+              {extendedProperties.map((property, idx) => (
+                <div
+                  key={`${property.id}-${idx}`}
+                  ref={idx === 0 ? cardRef : null}
+                  className="w-[100vw] min-w-[100vw] flex-shrink-0 sm:w-[340px] sm:min-w-[340px] md:w-[380px] md:min-w-[380px] lg:w-[420px] lg:min-w-[420px] xl:w-[460px] xl:min-w-[460px]"
+                >
+                  <PropertyCard
+                    property={property}
+                    onPrev={() => scroll('left')}
+                    onNext={() => scroll('right')}
+                  />
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
 
-      {/* Mobile Interactive Indicator Boxes */}
-      <div className="mt-6 flex justify-center gap-2 sm:hidden">
-        {featuredProperties.map((property, idx) => (
-          <button
-            key={property.id}
-            onClick={() => scrollToProperty(idx)}
-            aria-label={`Go to property ${idx + 1}`}
-            className={`h-2 cursor-pointer transition-all duration-300 ${
-              activeIndex === idx ? 'bg-gold w-2' : 'w-2 bg-gold/30 hover:bg-white/60'
-            }`}
-          />
-        ))}
+      {/* Mobile Indicator Rectangles / Slider Boxes */}
+      <div className="mt-8 flex justify-center gap-1.5 sm:hidden">
+        {featuredProperties.map((property, idx) => {
+          const isActive = ((currentIndex % totalItems) + totalItems) % totalItems === idx;
+          return (
+            <button
+              key={property.id}
+              onClick={() => {
+                setIsTransitioning(true);
+                setCurrentIndex(idx);
+              }}
+              aria-label={`Go to property ${idx + 1}`}
+              className={`h-2 w-2 border transition-all duration-300 ${
+                isActive
+                  ? 'bg-gold border-gold scale-110'
+                  : 'border-foreground/30 hover:border-foreground/60 bg-transparent'
+              }`}
+            />
+          );
+        })}
       </div>
 
-      {/* Bottom CTA Button */}
+      {/* Bottom CTA */}
       <Container>
         <div className="mt-10 flex justify-center sm:mt-14">
           <Link
-            href="/properties"
+            href="/portfolio"
             className={buttonVariants({ variant: 'primary', size: 'lg' })}
             style={{ borderRadius: 'var(--radius-button)' }}
           >
@@ -155,7 +166,7 @@ export function FeaturedProperties() {
 
 // 'use client';
 
-// import { useRef } from 'react';
+// import { useState, useRef, useEffect } from 'react';
 // import { ChevronLeft, ChevronRight } from 'lucide-react';
 // import Link from 'next/link';
 // import { Container } from '@/components/ui/Container';
@@ -166,86 +177,149 @@ export function FeaturedProperties() {
 // import { featuredProperties } from '@/constants/properties';
 
 // export function FeaturedProperties() {
-//   const scrollContainerRef = useRef<HTMLDivElement>(null);
+//   const containerRef = useRef<HTMLDivElement>(null);
+//   const cardRef = useRef<HTMLDivElement>(null);
+
+//   const extendedProperties = [...featuredProperties, ...featuredProperties, ...featuredProperties];
+//   const totalItems = featuredProperties.length;
+
+//   const [currentIndex, setCurrentIndex] = useState(0);
+//   const [isTransitioning, setIsTransitioning] = useState(true);
+//   const [slideOffset, setSlideOffset] = useState(0);
+
+//   const updateOffset = () => {
+//     if (cardRef.current) {
+//       const cardWidth = cardRef.current.offsetWidth;
+//       const gap = window.innerWidth < 640 ? 0 : 10;
+//       setSlideOffset(cardWidth + gap);
+//     }
+//   };
+
+//   useEffect(() => {
+//     updateOffset();
+//     window.addEventListener('resize', updateOffset);
+//     return () => window.removeEventListener('resize', updateOffset);
+//   }, []);
+
+//   const handleTransitionEnd = () => {
+//     if (currentIndex >= totalItems) {
+//       setIsTransitioning(false);
+//       setCurrentIndex(currentIndex % totalItems);
+//     } else if (currentIndex < 0) {
+//       setIsTransitioning(false);
+//       setCurrentIndex(totalItems + (currentIndex % totalItems));
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (!isTransitioning) {
+//       const timer = requestAnimationFrame(() => {
+//         setIsTransitioning(true);
+//       });
+//       return () => cancelAnimationFrame(timer);
+//     }
+//   }, [isTransitioning]);
 
 //   const scroll = (direction: 'left' | 'right') => {
-//     if (!scrollContainerRef.current) return;
-//     const { scrollLeft, clientWidth } = scrollContainerRef.current;
-
-//     const scrollAmount = clientWidth * 0.4;
-//     const targetScroll =
-//       direction === 'left' ? scrollLeft - scrollAmount : scrollLeft + scrollAmount;
-
-//     scrollContainerRef.current.scrollTo({
-//       left: targetScroll,
-//       behavior: 'smooth',
-//     });
+//     if (!isTransitioning) return;
+//     setCurrentIndex((prev) => (direction === 'right' ? prev + 1 : prev - 1));
 //   };
 
 //   return (
 //     <Section
 //       id="properties"
-//       className="bg-background text-foreground relative overflow-x-hidden py-20 transition-colors duration-300"
+//       className="bg-background text-foreground relative overflow-x-hidden py-12 transition-colors duration-300 sm:py-20"
 //     >
-//       {/* Title & Description strictly inside Container bounds */}
+//       {/* Section Heading Aligned with Container */}
 //       <Container>
 //         <SectionHeading
 //           eyebrow="Curated Portfolio"
 //           title="Featured Projects"
 //           description="A curated selection of our current premium offerings across choice destinations."
 //           align="center"
-//           className="mx-auto"
 //         />
 //       </Container>
 
-//       {/*
-//         Full-Width Track Container with Floating Arrows
-//       */}
-//       <div className="relative mt-12 w-full">
-//         {/* Floating Arrow Left - Pinned near left container margin */}
+//       {/* Main Track Wrapper */}
+//       <div className="relative mt-8 w-full sm:mt-12">
+//         {/* Desktop Left Chevron (Same styling as mobile) */}
 //         <button
 //           onClick={() => scroll('left')}
 //           aria-label="Scroll left"
-//           className="hover:text-gold absolute top-1/2 left-4 z-30 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-black/90 sm:left-8 md:left-12 lg:left-[calc((100vw-min(100vw,1280px))/2+1.5rem)]"
+//           className="absolute top-1/2 left-3 z-30 hidden -translate-y-1/2 text-white/90 drop-shadow-md transition-transform hover:scale-110 active:scale-95 sm:left-6 sm:flex lg:left-[calc((100vw-min(100vw,1280px))/2+2rem)]"
 //         >
-//           <ChevronLeft className="h-6 w-6" />
+//           <ChevronLeft className="h-8 w-8 stroke-[1.5]" />
 //         </button>
 
-//         {/* Floating Arrow Right - Pinned to the right viewport edge */}
+//         {/* Desktop Right Chevron (Same styling as mobile) */}
 //         <button
 //           onClick={() => scroll('right')}
 //           aria-label="Scroll right"
-//           className="hover:text-gold absolute top-1/2 right-4 z-30 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-black/90"
+//           className="absolute top-1/2 right-3 z-30 hidden -translate-y-1/2 text-white/90 drop-shadow-md transition-transform hover:scale-110 active:scale-95 sm:right-4 sm:flex md:right-8"
 //         >
-//           <ChevronRight className="h-6 w-6" />
+//           <ChevronRight className="h-8 w-8 stroke-[1.5]" />
 //         </button>
 
-//         {/*
-//           Asymmetric Scroll Track:
-//           - Left padding dynamically aligns the 1st card with the <Container> grid
-//           - Right side has 0 padding (pr-0) so cards bleed edge-to-edge off the right viewport
-//           - [scrollbar-width:none] & [&::-webkit-scrollbar]:hidden eliminate the horizontal scrollbar
-//         */}
-//         <div
-//           ref={scrollContainerRef}
-//           className="ml-auto flex w-[90vw] snap-x snap-mandatory [scrollbar-width:none] gap-2.5 overflow-x-auto scroll-smooth pr-0 pl-0 [&::-webkit-scrollbar]:hidden"
-//         >
-//           {featuredProperties.map((property) => (
+//         {/* Outer Padding Box */}
+//         <div className="pl-0 sm:pl-6 lg:pl-[calc((100vw-min(100vw,1280px))/2+2rem)]">
+//           {/* Inner Clip Box */}
+//           <div className="w-full overflow-hidden sm:w-[calc(100%+50vw)]" ref={containerRef}>
 //             <div
-//               key={property.id}
-//               className="w-[65vw] min-w-[65vw] flex-shrink-0 snap-start sm:w-[40vw] sm:min-w-[40vw] md:w-[28vw] md:min-w-[28vw] lg:w-[18vw] lg:min-w-[18vw] xl:w-[25vw] xl:min-w-[25vw]"
+//               onTransitionEnd={handleTransitionEnd}
+//               className={`flex gap-0 sm:gap-2.5 ${
+//                 isTransitioning
+//                   ? 'transition-transform duration-700 ease-[0.16,1,0.3,1]'
+//                   : 'transition-none'
+//               }`}
+//               style={{
+//                 transform: `translateX(-${currentIndex * slideOffset}px)`,
+//               }}
 //             >
-//               <PropertyCard property={property} />
+//               {extendedProperties.map((property, idx) => (
+//                 <div
+//                   key={`${property.id}-${idx}`}
+//                   ref={idx === 0 ? cardRef : null}
+//                   className="w-[100vw] min-w-[100vw] flex-shrink-0 sm:w-[50vw] sm:min-w-[50vw] md:w-[35vw] md:min-w-[35vw] lg:w-[25vw] lg:min-w-[25vw] xl:w-[30vw] xl:min-w-[30vw]"
+//                 >
+//                   <PropertyCard
+//                     property={property}
+//                     onPrev={() => scroll('left')}
+//                     onNext={() => scroll('right')}
+//                   />
+//                 </div>
+//               ))}
 //             </div>
-//           ))}
+//           </div>
 //         </div>
 //       </div>
 
-//       {/* Bottom CTA Button */}
+//       {/* Mobile Indicator Rectangles / Slider Boxes */}
+//       <div className="mt-8 flex justify-center gap-1.5 sm:hidden">
+//         {featuredProperties.map((property, idx) => {
+//           const isActive = ((currentIndex % totalItems) + totalItems) % totalItems === idx;
+//           return (
+//             <button
+//               key={property.id}
+//               onClick={() => {
+//                 setIsTransitioning(true);
+//                 setCurrentIndex(idx);
+//               }}
+//               aria-label={`Go to property ${idx + 1}`}
+//               className={`h-2.5 w-2.5 border transition-all duration-300 ${
+//                 isActive
+//                   ? 'bg-foreground border-foreground scale-110'
+//                   : 'border-foreground/30 hover:border-foreground/60 bg-transparent'
+//               }`}
+//             />
+//           );
+//         })}
+//       </div>
+
+//       {/* Bottom CTA */}
 //       <Container>
-//         <div className="mt-14 flex justify-center">
+//         <div className="mt-10 flex justify-center sm:mt-14">
 //           <Link
-//             href="/properties"
+//             href="/portfolio"
 //             className={buttonVariants({ variant: 'primary', size: 'lg' })}
 //             style={{ borderRadius: 'var(--radius-button)' }}
 //           >

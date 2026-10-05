@@ -31,6 +31,7 @@ import {
   Download,
   Briefcase,
   Camera,
+  ExternalLink,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
@@ -114,71 +115,9 @@ export function PropertyPageTemplate({
   return (
     <main className="bg-paper text-ink selection:bg-gold/20 selection:text-ink relative min-h-screen overflow-hidden">
       {/* ========================================================= */}
-      {/* BACKGROUND TEXTURE: TAILWIND V4 ARCHITECTURAL CAD MESH    */}
-      {/* ========================================================= */}
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden select-none">
-        {/* Fine Architectural Blueprint Grid Pattern */}
-        <div
-          className="absolute inset-0 opacity-40"
-          style={{
-            backgroundImage: `radial-gradient(circle, #C9A227 1.2px, transparent 1.2px)`,
-            backgroundSize: '32px 32px',
-          }}
-        />
-
-        {/* Floating Animated Geometric Blueprint Circles */}
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 90, repeat: Infinity, ease: 'linear' }}
-          className="absolute -top-40 -right-40 h-[650px] w-[650px] rounded-full border border-dashed border-[#C9A227]/30"
-        />
-
-        <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 120, repeat: Infinity, ease: 'linear' }}
-          className="absolute top-1/3 -left-60 h-[750px] w-[750px] rounded-full border border-[#C9A227]/20"
-        />
-
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 110, repeat: Infinity, ease: 'linear' }}
-          className="absolute -right-20 bottom-10 h-[500px] w-[500px] rounded-full border border-dashed border-[#C9A227]/25"
-        />
-
-        {/* CAD Blueprint Registration Crosshairs
-        <div className="absolute top-36 left-8 font-mono text-xs text-[#C9A227]/50">
-          + <span className="text-[9px] tracking-widest text-[#C9A227]/40">CAD // 01.A</span>
-        </div>
-        <div className="absolute top-36 right-8 font-mono text-xs text-[#C9A227]/50">
-          + <span className="text-[9px] tracking-widest text-[#C9A227]/40">CAD // 01.B</span>
-        </div>
-        <div className="absolute top-1/2 left-12 font-mono text-xs text-[#C9A227]/50">
-          + <span className="text-[9px] tracking-widest text-[#C9A227]/40">SEC // 02</span>
-        </div>
-        <div className="absolute top-2/3 right-12 font-mono text-xs text-[#C9A227]/50">
-          + <span className="text-[9px] tracking-widest text-[#C9A227]/40">ELEV // 03</span>
-        </div>
-        <div className="absolute bottom-20 left-8 font-mono text-xs text-[#C9A227]/50">
-          + <span className="text-[9px] tracking-widest text-[#C9A227]/40">SITE // END</span>
-        </div> */}
-
-        {/* Ambient Warm Glow Orbs */}
-        <motion.div
-          animate={{ opacity: [0.2, 0.45, 0.2], scale: [0.95, 1.05, 0.95] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/4 left-10 h-[450px] w-[450px] rounded-full bg-[#C9A227]/15 blur-[120px]"
-        />
-        <motion.div
-          animate={{ opacity: [0.15, 0.35, 0.15], scale: [1, 1.1, 1] }}
-          transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          className="absolute top-2/3 right-10 h-[550px] w-[550px] rounded-full bg-[#C9A227]/10 blur-[140px]"
-        />
-      </div>
-
-      {/* ========================================================= */}
       {/* 1. HERO BANNER                                            */}
       {/* ========================================================= */}
-      <section className="relative isolate flex h-[600px] w-full flex-col justify-end overflow-hidden bg-black pb-16 text-white sm:h-[720px] md:pb-20">
+      <section className="relative isolate flex h-[90vh] w-full flex-col justify-center overflow-hidden bg-black pb-16 text-white sm:h-[720px] md:pb-20">
         {/* LAYER 1: Background & Overlays (Lower Stacking Context) */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden select-none">
           <motion.div
@@ -200,8 +139,8 @@ export function PropertyPageTemplate({
           </motion.div>
 
           {/* Overlays */}
-          <div className="absolute inset-0 bg-black/20" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/5" />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/25" />
         </div>
 
         {/* LAYER 2: Text & Interactive Content (Higher Stacking Context) */}
@@ -215,16 +154,16 @@ export function PropertyPageTemplate({
             >
               {/* Hanging & Swinging Location Badge */}
               <motion.span
-                style={{ transformOrigin: 'top center' }} // Pivots from the top like a dangling sign
-                animate={{
-                  rotate: [0, 4, -3, 2, -1, 0], // Gentle, natural wind sway
-                }}
-                transition={{
-                  duration: 4, // Full cycle duration
-                  repeat: Infinity, // Loops forever
-                  repeatType: 'loop',
-                  ease: 'easeInOut', // Smooth pendulum-like movement
-                }}
+                // style={{ transformOrigin: 'top center' }} // Pivots from the top like a dangling sign
+                // animate={{
+                //   rotate: [0, 4, -3, 2, -1, 0], // Gentle, natural wind sway
+                // }}
+                // transition={{
+                //   duration: 4, // Full cycle duration
+                //   repeat: Infinity, // Loops forever
+                //   repeatType: 'loop',
+                //   ease: 'easeInOut', // Smooth pendulum-like movement
+                // }}
                 className="text-gold inline-flex items-center gap-1.5 rounded-full border border-[#C9A227]/40 bg-[#C9A227]/10 px-3.5 py-1 font-mono text-xs font-semibold tracking-widest uppercase shadow-sm backdrop-blur-md"
               >
                 <MapPin className="text-gold h-3.5 w-3.5" />
@@ -553,7 +492,100 @@ export function PropertyPageTemplate({
       </Section>
 
       {/* 3b. GALLERY + ADDRESS */}
+      {/* ========================================================= */}
+{/* ========================================================= */}
+      {/* 3b. GALLERY & INTERACTIVE LOCATION MAP                    */}
+      {/* ========================================================= */}
       {(property?.gallery || property?.address) && (
+        <Section className="relative z-20 bg-transparent py-16 lg:py-24">
+          <Container>
+            {/* Gallery Section */}
+            {property.gallery && (
+              <motion.div
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <span className="text-gold font-mono text-xs tracking-widest uppercase">
+                  GALLERY
+                </span>
+                <h2 className="text-ink mt-1 mb-8 font-serif text-2xl font-medium sm:text-3xl">
+                  {property.name} in Pictures
+                </h2>
+                <PropertyGallery
+                  gallery={property.gallery}
+                  name={property.name}
+                  onSelect={setSelectedImage}
+                />
+              </motion.div>
+            )}
+
+            {/* Location & Map Section */}
+            {property.address && (
+              <motion.div
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="border-warm-gray-200/80 mt-16 flex flex-col border-t pt-12"
+              >
+                <div className="mb-6">
+                  <span className="text-gold mb-2 block font-mono text-xs font-semibold tracking-widest uppercase">
+                    LOCATION & DIRECTIONS
+                  </span>
+                  <h2 className="text-foreground font-serif text-2xl font-medium sm:text-3xl">
+                    Visit {property.name}
+                  </h2>
+                  <p className="text-warm-gray-700 mt-2 text-sm">
+                    Locate the property or open the location directly in Google Maps.
+                  </p>
+                </div>
+
+                <div className="border-warm-gray-200 bg-background relative flex min-h-[420px] w-full flex-col overflow-hidden rounded-3xl border shadow-sm sm:min-h-[480px]">
+                  {/* Map Embed Frame with top-left address card */}
+                  <iframe
+                    title={`${property.name} Location Map`}
+                    src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                      `${property.name},${property.address}`
+                    )}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+                    width="100%"
+                    height="100%"
+                    className="min-h-[340px] flex-1 border-0"
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+
+                  {/* Bottom Address & Direct Link Bar */}
+                  <div className="border-warm-gray-200 bg-surface flex flex-col gap-2.5 border-t px-6 py-4">
+                    <div className="flex items-start gap-2.5">
+                      <MapPin className="text-gold-accessible mt-0.5 h-4 w-4 shrink-0" />
+                      <span className="text-foreground font-serif text-sm leading-relaxed">
+                        {property.address}
+                      </span>
+                    </div>
+
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                        `${property.name},${property.address}`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-warm-gray-700 hover:text-gold-accessible inline-flex items-center gap-1.5 self-start font-sans text-xs transition-colors"
+                    >
+                      <span>Open in Maps</span>
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </Container>
+        </Section>
+
+      )}
+      {/* {(property?.gallery || property?.address) && (
         <Section className="relative z-20 bg-transparent py-16 lg:py-24">
           <Container>
             {property.gallery && (
@@ -589,7 +621,7 @@ export function PropertyPageTemplate({
             )}
           </Container>
         </Section>
-      )}
+      )} */}
 
       {/* ========================================================= */}
       {/* 4. INVESTMENT ADVANTAGES HERO BANNER                      */}
@@ -668,7 +700,94 @@ export function PropertyPageTemplate({
       {/* ========================================================= */}
       {/* 5. OTHER PORTFOLIO PROJECTS                               */}
       {/* ========================================================= */}
+
+      {/* ========================================================= */}
+      {/* 5. OTHER PORTFOLIO PROJECTS                               */}
+      {/* ========================================================= */}
       {safeOtherProperties.length > 0 && (
+        <Section className="border-warm-gray-200/80 relative z-20 border-t bg-white/40 py-20 backdrop-blur-xs">
+          <Container>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeInUpVariants}
+              className="mb-12 flex items-center justify-between"
+            >
+              <div>
+                <span className="text-gold font-mono text-xs tracking-widest uppercase">
+                  EXPLORE MORE
+                </span>
+                <h2 className="text-ink mt-1 font-serif text-2xl font-medium sm:text-3xl">
+                  Other Portfolio Projects
+                </h2>
+              </div>
+              <Link
+                href="/portfolio"
+                className="text-gold flex items-center gap-1 font-mono text-xs tracking-wider uppercase hover:underline"
+              >
+                <span>View All Projects</span>
+                <ChevronRight className="h-4 w-4" />
+              </Link>
+            </motion.div>
+
+            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+              {safeOtherProperties.map((p, idx) => (
+                <motion.div
+                  key={p.slug}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={fadeInUpVariants}
+                  custom={idx * 0.5}
+                  className="flex flex-col"
+                >
+                  {/* Full Height/Aspect Image Container */}
+                  <Link
+                    href={`/portfolio/${p.slug}`}
+                    className="group block overflow-hidden rounded-xl"
+                  >
+                    <div className="bg-warm-gray-100 relative aspect-[4/3] h-[80vh] w-full overflow-hidden">
+                      {p.heroImage && (
+                        <Image
+                          src={p.heroImage}
+                          alt={p.name}
+                          fill
+                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                      )}
+                    </div>
+                  </Link>
+
+                  {/* Property Info Outside Container */}
+                  <div className="mt-6 flex flex-1 flex-col justify-between">
+                    <div>
+                      <h3 className="text-ink font-serif text-2xl font-medium tracking-tight sm:text-3xl">
+                        {p.name}
+                      </h3>
+                      <p className="text-warm-gray-600 mt-3 line-clamp-3 text-sm leading-relaxed font-light">
+                        {p.overviewTitle || p.location}
+                      </p>
+                    </div>
+
+                    {/* Discover More Outlined Button */}
+                    <div className="mt-6 pt-2">
+                      <Link
+                        href={`/portfolio/${p.slug}`}
+                        className="group/btn border-gold/80 hover:bg-gold text-ink flex w-full items-center justify-center border px-6 py-3.5 font-mono text-xs font-semibold tracking-widest uppercase transition-all duration-300 hover:text-white active:scale-[0.99]"
+                      >
+                        <span>Discover More</span>
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </Container>
+        </Section>
+      )}
+      {/* {safeOtherProperties.length > 0 && (
         <Section className="border-warm-gray-200/80 relative z-20 border-t bg-white/40 py-20 backdrop-blur-xs">
           <Container>
             <motion.div
@@ -734,7 +853,7 @@ export function PropertyPageTemplate({
             </div>
           </Container>
         </Section>
-      )}
+      )} */}
 
       {/* Lightbox Image View Modal */}
       <AnimatePresence>

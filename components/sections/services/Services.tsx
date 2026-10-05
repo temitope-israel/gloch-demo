@@ -11,7 +11,7 @@ export function Services() {
   return (
     <Section
       id="services"
-      className="bg-surface text-foreground relative overflow-hidden py-28 transition-colors duration-300"
+      className="text-foreground relative overflow-hidden bg-white py-28 transition-colors duration-300"
     >
       {/* Background Soft Glow */}
       <div className="pointer-events-none absolute top-1/3 left-1/2 -z-10 h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-amber-500/5 blur-3xl" />
@@ -37,7 +37,7 @@ export function Services() {
         </div>
 
         {/* Bottom CTA Section */}
-        <div className="mt-20 flex justify-center text-center md:mt-28">
+        {/* <div className="mt-20 flex justify-center text-center md:mt-28">
           <Link
             href="/#contact"
             className={buttonVariants({
@@ -49,7 +49,7 @@ export function Services() {
             <span>Learn More</span>
             <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
-        </div>
+        </div> */}
       </Container>
     </Section>
   );

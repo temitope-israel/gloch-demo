@@ -36,7 +36,7 @@ export function Footer() {
             <div className="flex items-center justify-center">
               <Link
                 href="#home"
-                className="relative flex h-24 w-[120px] transition-opacity duration-300 hover:opacity-80"
+                className="relative flex h-30 w-[160px] transition-opacity duration-300 hover:opacity-80"
               >
                 <Image
                   src="/logo.png"
@@ -46,10 +46,10 @@ export function Footer() {
                 />
               </Link>
             </div>
-            <p className="text-small text-warm-gray-400 mt-6 max-w-sm leading-relaxed font-light tracking-wide">
+            {/* <p className="text-small text-warm-gray-400 mt-6 max-w-sm leading-relaxed font-light tracking-wide">
               Trusted real estate management and development, built on transparency, timeless
               architecture, and definitive precision.
-            </p>
+            </p> */}
           </div>
 
           {/* Column 2: Quick Links Navigation Group */}

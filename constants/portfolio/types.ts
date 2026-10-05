@@ -6,12 +6,12 @@ export interface PropertyGallery { exterior: string[]; interior: string[]; siteU
 
 
 export interface PropertyStats {
-  status: string
+  status?: string
   area: string
   type: string
-  apartments: string
+  apartments?: string
   totalFloors: string
-  flatSize: string
+  flatSize?: string
 }
 
 export interface PropertyAmenity {
