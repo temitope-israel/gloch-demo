@@ -180,8 +180,7 @@ export function PropertyPageTemplate({
               />
             )}
           </motion.div>
-          <div className="absolute inset-0 bg-black/40" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/25" />
+?          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/25" />
         </div>
 
         <Container className="relative z-10">
