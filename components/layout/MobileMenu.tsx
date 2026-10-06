@@ -9,12 +9,8 @@ import { Button } from '@/components/ui/Button';
 import { navItems, isGroup } from '@/constants/nav';
 
 export function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  // Tracks which group (Portfolio / About Us) is expanded — only one open
-  // at a time keeps the overlay from getting overwhelming on a small screen.
   const [openGroup, setOpenGroup] = useState<string | null>(null);
 
-  // Reset the accordion state whenever the menu closes, so it doesn't
-  // reopen already-expanded next time for no reason.
   function handleClose() {
     setOpenGroup(null);
     onClose();
@@ -38,8 +34,6 @@ export function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () =
             </button>
           </div>
 
-          {/* overflow-y-auto so the Portfolio group's 8 items don't push
-              the CTA button off-screen on shorter phones */}
           <nav className="flex flex-1 flex-col items-center overflow-y-auto px-8 py-4">
             {navItems.map((entry, i) => {
               if (!isGroup(entry)) {
@@ -62,7 +56,7 @@ export function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                 );
               }
 
-              const isOpen = openGroup === entry.label;
+              const isExpanded = openGroup === entry.label;
 
               return (
                 <motion.div
@@ -72,20 +66,34 @@ export function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                   transition={{ delay: 0.1 + i * 0.06, duration: 0.4 }}
                   className="w-full max-w-xs py-3"
                 >
-                  <button
-                    onClick={() => setOpenGroup(isOpen ? null : entry.label)}
-                    aria-expanded={isOpen}
-                    className="text-h3 hover:text-gold flex w-full items-center justify-center gap-2 font-serif text-white transition-colors"
-                  >
-                    {entry.label}
-                    <ChevronDown
-                      className={`h-5 w-5 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
-                      aria-hidden
-                    />
-                  </button>
+                  {/* Split Header: Click title to go to page; Click chevron to expand dropdown */}
+                  <div className="flex items-center justify-center gap-2">
+                    <Link
+                      href={entry.href || '#'}
+                      onClick={handleClose}
+                      className="text-h3 hover:text-gold font-serif text-white transition-colors"
+                    >
+                      {entry.label}
+                    </Link>
+
+                    <button
+                      type="button"
+                      onClick={() => setOpenGroup(isExpanded ? null : entry.label)}
+                      aria-expanded={isExpanded}
+                      aria-label={`Toggle ${entry.label} submenu`}
+                      className="hover:text-gold p-1 text-white/70 transition-colors"
+                    >
+                      <ChevronDown
+                        className={`h-6 w-6 transition-transform duration-300 ${
+                          isExpanded ? 'rotate-180 text-amber-400' : ''
+                        }`}
+                        aria-hidden
+                      />
+                    </button>
+                  </div>
 
                   <AnimatePresence initial={false}>
-                    {isOpen && (
+                    {isExpanded && (
                       <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
@@ -118,9 +126,11 @@ export function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () =
               transition={{ delay: 0.1 + navItems.length * 0.06, duration: 0.4 }}
               className="mt-6"
             >
-              <Button variant="primary" size="lg">
-                Book Consultation
-              </Button>
+              <Link href="/contact" onClick={handleClose}>
+                <Button variant="primary" size="lg">
+                  Book Consultation
+                </Button>
+              </Link>
             </motion.div>
           </nav>
         </motion.div>

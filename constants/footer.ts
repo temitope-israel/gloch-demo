@@ -7,7 +7,7 @@
 // doesn't have), they won't fight each other.
 export const footerQuickLinks = [
   { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
+  { label: 'About Us', href: '#about' },
   { label: 'Services', href: '#services' },
   { label: 'Properties', href: '#properties' },
   { label: 'Contact', href: '#contact' },
