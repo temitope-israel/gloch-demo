@@ -250,6 +250,144 @@ export function PropertyPageTemplate({
           </div>
         </Container>
       </section>
+
+      {/* ========================================================= */}
+      {/* 2. OVERVIEW & DESCRIPTION IMAGE (SIDE BY SIDE) + AMENITIES */}
+      {/* ========================================================= */}
+      <Section className="relative z-20 bg-white pt-16 pb-16 lg:pt-24 lg:pb-20">
+        <Container>
+          {/* TOP BLOCK: DESCRIPTION IMAGE & OVERVIEW SIDE-BY-SIDE */}
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
+            {/* RIGHT COLUMN: PROPERTY OVERVIEW (7 COLUMNS) */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeInUpVariants}
+              className="space-y-6 lg:col-span-7"
+            >
+              <div>
+                <span className="text-gold flex items-center gap-2 font-mono text-xs font-semibold tracking-widest uppercase">
+                  <Sparkles className="h-4 w-4" /> Property Overview
+                </span>
+                <h2 className="text-ink mt-2 font-serif text-3xl font-medium tracking-tight sm:text-4xl">
+                  {property?.overviewTitle || property?.name}
+                </h2>
+              </div>
+
+              <div className="text-warm-gray-700 space-y-4 text-base leading-relaxed font-light">
+                {descriptionList.slice(0, 2).map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
+
+              {/* Downloads / Action Buttons */}
+              {property?.brochures && property.brochures.length > 0 && (
+                <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:flex-wrap">
+                  {property.brochures.map((b) => (
+                    <a
+                      key={b.href}
+                      href={b.href}
+                      download
+                      className="border-warm-gray-400 hover:border-gold hover:bg-gold/10 text-ink inline-flex items-center justify-center gap-2.5 rounded-none border bg-white px-6 py-3 font-mono text-xs font-semibold tracking-wider uppercase transition-all duration-300"
+                    >
+                      <Download className="text-gold h-4 w-4" aria-hidden />
+                      {b.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+
+            {/* LEFT COLUMN: DESCRIPTION IMAGE (5 COLUMNS) */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeInUpVariants}
+              className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-lg lg:col-span-5"
+            >
+              <Image
+                src={
+                  property?.descriptionImage ||
+                  exteriorImages[0] ||
+                  property?.heroImage ||
+                  '/placeholder.jpg'
+                }
+                alt={property?.name || 'Property Description'}
+                fill
+                className="object-cover transition-transform duration-700 hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+            </motion.div>
+          </div>
+
+          {/* BOTTOM BLOCK: AMENITIES (FULL WIDTH - 1 ROW, 5 COLUMNS ON LARGE SCREENS) */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeInUpVariants}
+            className="border-warm-gray-200/80 mt-16 w-full min-w-0 border-t pt-8"
+          >
+            <div className="mb-6 flex items-center justify-between">
+              <h3 className="text-ink font-serif text-2xl font-semibold tracking-wider uppercase">
+                AMENITIES
+              </h3>
+            </div>
+
+            {/* Clean Full-Width Container */}
+            <div className="relative py-2">
+              <div
+                ref={amenitiesScrollRef}
+                onScroll={handleAmenitiesScroll}
+                className="flex w-full snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto scroll-smooth [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              >
+                {amenitiesList.map((amenity, i) => {
+                  const IconComponent = amenityIconMap[amenity.key] || Layers;
+                  const isPageStart = i % 5 === 0;
+
+                  return (
+                    <div
+                      key={`${amenity.key}-${i}`}
+                      className={`w-1/2 max-w-[180px] min-w-[50%] shrink-0 px-1 sm:w-1/3 sm:min-w-[33.333%] lg:w-1/5 lg:min-w-[20%] ${
+                        isPageStart ? 'snap-start' : ''
+                      }`}
+                    >
+                      <div className="group border-warm-gray-200 hover:border-gold flex h-[100px] w-full flex-col items-center justify-center rounded-xl border bg-white p-2.5 shadow-xs transition-all duration-300 hover:shadow-md sm:h-[130px]">
+                        <div className="text-warm-gray-700 group-hover:text-gold mb-1.5 transition-colors duration-300">
+                          <IconComponent className="h-5 w-5 stroke-[1.25] sm:h-6 sm:w-6" />
+                        </div>
+                        <span className="text-ink text-center font-sans text-[11px] leading-tight font-medium sm:text-xs">
+                          {amenity.label}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Pagination Indicators */}
+              {totalAmenityPages > 1 && (
+                <div className="mt-6 flex items-center justify-center gap-2">
+                  {Array.from({ length: totalAmenityPages }).map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => scrollToAmenityPage(idx)}
+                      aria-label={`Go to amenities slide ${idx + 1}`}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        amenitiesActiveIndex === idx
+                          ? 'bg-gold w-5'
+                          : 'bg-warm-gray-300 hover:bg-warm-gray-400 w-1.5'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        </Container>
+      </Section>
       {/* <section className="relative isolate flex h-[90vh] w-full flex-col justify-center overflow-hidden bg-black pb-16 text-white sm:h-[720px] md:pb-20">
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden select-none">
           <motion.div
@@ -345,10 +483,9 @@ export function PropertyPageTemplate({
       {/* ========================================================= */}
       {/* 2. OVERVIEW (65% COL) & AMENITIES (35% COL)              */}
       {/* ========================================================= */}
-      <Section className="relative z-20 bg-white pt-16 pb-16 lg:pt-24 lg:pb-20">
+      {/* <Section className="relative z-20 bg-white pt-16 pb-16 lg:pt-24 lg:pb-20">
         <Container>
           <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-12">
-            {/* LEFT COLUMN: PROPERTY OVERVIEW (65% WIDTH) */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -371,7 +508,6 @@ export function PropertyPageTemplate({
                 ))}
               </div>
 
-              {/* Downloads / Action Buttons */}
               {property?.brochures && property.brochures.length > 0 && (
                 <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:flex-wrap">
                   {property.brochures.map((b) => (
@@ -389,7 +525,6 @@ export function PropertyPageTemplate({
               )}
             </motion.div>
 
-            {/* RIGHT COLUMN: AMENITIES (35% WIDTH - CLEAN & BORDERLESS PARENT) */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -403,7 +538,6 @@ export function PropertyPageTemplate({
                 </h3>
               </div>
 
-              {/* Clean Container (No Background or Border) */}
               <div className="relative py-2">
                 <div
                   ref={amenitiesScrollRef}
@@ -434,7 +568,6 @@ export function PropertyPageTemplate({
                   })}
                 </div>
 
-                {/* Pagination Indicators */}
                 {totalAmenityPages > 1 && (
                   <div className="mt-5 flex items-center justify-center gap-2">
                     {Array.from({ length: totalAmenityPages }).map((_, idx) => (
@@ -455,7 +588,7 @@ export function PropertyPageTemplate({
             </motion.div>
           </div>
         </Container>
-      </Section>
+      </Section> */}
 
       {/* ========================================================= */}
       {/* 3. VISUAL EXHIBIT (EXTERIOR & INTERIOR GALLERIES)          */}
@@ -504,7 +637,7 @@ export function PropertyPageTemplate({
                       <div
                         key={idx}
                         onClick={() => setSelectedImage(src)}
-                        className="group relative h-[70vh] max-h-[550px] min-h-[380px] w-full min-w-full shrink-0 cursor-pointer snap-center overflow-hidden shadow-sm"
+                        className="group relative h-[70vh] max-h-[650px] min-h-[580px] w-full min-w-full shrink-0 cursor-pointer snap-center overflow-hidden shadow-sm"
                       >
                         <Image
                           src={src}
@@ -563,7 +696,7 @@ export function PropertyPageTemplate({
                       <div
                         key={idx}
                         onClick={() => setSelectedImage(src)}
-                        className="group relative h-[80vh] max-h-[550px] min-h-[380px] w-full min-w-full shrink-0 cursor-pointer snap-center overflow-hidden shadow-sm"
+                        className="group relative h-[80vh] max-h-[650px] min-h-[580px] w-full min-w-full shrink-0 cursor-pointer snap-center overflow-hidden shadow-sm"
                       >
                         <Image
                           src={src}

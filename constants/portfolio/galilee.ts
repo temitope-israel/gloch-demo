@@ -64,5 +64,5 @@ videoTitle: 'The Galilee: Site Tour',
 address: 'Kwara Street, Banana Island, Lagos',
   ...galileeAssets,
 
-  descriptionImage: '/portfolio/the-galilee/interior/galilee-stairs-scaled.png'
+  descriptionImage: '/portfolio/the-galilee/interior/galilee-stairs-scaled.webp'
 }
