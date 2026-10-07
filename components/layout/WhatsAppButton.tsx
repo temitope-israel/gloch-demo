@@ -18,7 +18,7 @@ export function WhatsAppButton() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed right-6 bottom-6 z-40 md:right-8 md:bottom-8">
+    <div className="fixed right-6 bottom-6 z-40 md:right-8 md:bottom-20">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -26,7 +26,7 @@ export function WhatsAppButton() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.96 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-ink absolute right-0 bottom-20 w-80 overflow-hidden rounded-[--radius-card] border border-white/10 shadow-[0_20px_60px_-12px_rgb(0_0_0_/_0.5)]"
+            className="bg-ink absolute right-0 bottom-10 w-80 overflow-hidden rounded-[--radius-card] border border-white/10 shadow-[0_20px_60px_-12px_rgb(0_0_0_/_0.5)]"
           >
             {/* Header — dark ink + gold accent, matching Navbar/Footer identity,
                 rather than plain WhatsApp green, so this feels like GLOCH's

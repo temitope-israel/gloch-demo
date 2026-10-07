@@ -158,10 +158,11 @@ export function PropertyPageTemplate({
 
   return (
     <main className="text-ink selection:bg-gold/20 selection:text-ink relative min-h-screen overflow-hidden bg-white">
-      {/* ========================================================= */}
+      {/* ============================================================ */}
       {/* 1. HERO BANNER                                            */}
-      {/* ========================================================= */}
-      <section className="relative isolate flex h-[90vh] w-full flex-col justify-center overflow-hidden bg-black pb-16 text-white sm:h-[720px] md:pb-20">
+      {/* ============================================================ */}
+
+      <section className="relative isolate flex h-[90vh] w-full flex-col justify-center overflow-hidden bg-black pb-16 text-white sm:h-[100vh] md:pb-20">
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden select-none">
           <motion.div
             initial={{ scale: 1.15 }}
@@ -180,10 +181,11 @@ export function PropertyPageTemplate({
               />
             )}
           </motion.div>
-?          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/25" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/25" />
         </div>
 
-        <Container className="relative z-10">
+        <Container className="relative z-10 flex h-full flex-col justify-center">
+          {/* Main Content Column */}
           <div className="max-w-4xl">
             <motion.div
               initial={{ opacity: 0, y: 28 }}
@@ -191,13 +193,9 @@ export function PropertyPageTemplate({
               transition={{ duration: 0.7, delay: 0, ease: [0.16, 1, 0.3, 1] }}
               className="mb-4 flex flex-wrap items-center gap-3"
             >
-              <span className="text-gold inline-flex items-center gap-1.5 rounded-full border border-[#C9A227]/40 bg-[#C9A227]/10 px-3.5 py-1 font-mono text-xs font-semibold tracking-widest uppercase shadow-sm backdrop-blur-md">
-                <MapPin className="text-gold h-3.5 w-3.5" />
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#C9A227]/40 bg-[#C9A227]/10 px-3.5 py-1 font-mono text-xs font-semibold tracking-widest text-white uppercase shadow-sm backdrop-blur-md">
+                <MapPin className="h-3.5 w-3.5 text-white" />
                 {property?.location}
-              </span>
-              <span className="text-warm-gray-300 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/10 px-3.5 py-1 font-mono text-xs font-medium tracking-widest uppercase backdrop-blur-md">
-                <Building2 className="text-gold h-3.5 w-3.5" />
-                {property?.stats?.status}
               </span>
             </motion.div>
 
@@ -214,7 +212,7 @@ export function PropertyPageTemplate({
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-4 max-w-2xl text-base leading-relaxed font-light text-white/80 sm:text-lg"
+              className="mt-4 max-w-2xl text-base leading-relaxed font-light text-white sm:text-lg"
             >
               {property?.overviewTitle}
             </motion.p>
@@ -236,8 +234,113 @@ export function PropertyPageTemplate({
               </a>
             </motion.div>
           </div>
+
+          {/* Status Badge - Fixed to Bottom Right inside Container */}
+          <div className="mt-8 md:absolute md:right-8 md:bottom-12 md:mt-0">
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black px-3.5 py-1 font-mono text-xs font-medium tracking-widest text-white uppercase backdrop-blur-md">
+                <Building2 className="h-3.5 w-3.5 text-white" />
+                {property?.stats?.status}
+              </span>
+            </motion.div>
+          </div>
         </Container>
       </section>
+      {/* <section className="relative isolate flex h-[90vh] w-full flex-col justify-center overflow-hidden bg-black pb-16 text-white sm:h-[720px] md:pb-20">
+        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden select-none">
+          <motion.div
+            initial={{ scale: 1.15 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+            className="relative h-full w-full"
+          >
+            {property?.heroImage && (
+              <Image
+                src={property.heroImage}
+                alt={property?.name || 'Property'}
+                fill
+                priority
+                className="object-cover object-center"
+                sizes="100vw"
+              />
+            )}
+          </motion.div>
+          ?{' '}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/25" />
+        </div>
+
+        <Container className="relative z-10">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-4xl">
+              <motion.div
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+                className="mb-4 flex flex-wrap items-center gap-3"
+              >
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-[#C9A227]/40 bg-[#C9A227]/10 px-3.5 py-1 font-mono text-xs font-semibold tracking-widest text-white uppercase shadow-sm backdrop-blur-md">
+                  <MapPin className="h-3.5 w-3.5 text-white" />
+                  {property?.location}
+                </span>
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="font-serif text-4xl leading-[1.1] font-medium tracking-tight text-white drop-shadow-md sm:text-6xl lg:text-7xl"
+              >
+                {property?.name}
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-4 max-w-2xl text-base leading-relaxed font-light text-white sm:text-lg"
+              >
+                {property?.overviewTitle}
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-6 flex flex-wrap items-center gap-4"
+              >
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-gold hover:bg-gold/90 inline-flex items-center gap-2.5 rounded-xl px-7 py-4 font-mono text-xs font-semibold tracking-wider text-black uppercase transition-all duration-300 hover:shadow-lg hover:shadow-[#C9A227]/20 active:scale-[0.98]"
+                >
+                  <span>Schedule Inspection</span>
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              </motion.div>
+            </div>
+
+            <div className="flex justify-start md:justify-end md:pb-2">
+              <motion.div
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black px-3.5 py-1 font-mono text-xs font-medium tracking-widest text-white uppercase backdrop-blur-md">
+                  <Building2 className="h-3.5 w-3.5 text-white" />
+                  {property?.stats?.status}
+                </span>
+              </motion.div>
+            </div>
+          </div>
+        </Container>
+
+
+      </section> */}
 
       {/* ========================================================= */}
       {/* 2. OVERVIEW (65% COL) & AMENITIES (35% COL)              */}
