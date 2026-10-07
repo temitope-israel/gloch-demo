@@ -55,7 +55,7 @@ export const galilee: Property = {
   ],
   // Placeholder \u2014 real exterior/interior photography pending from Gloch,
   // same as the Our Team photos. Reusing an existing property image for now.
-  heroImage: '/properties/galilee-property-main.webp',
+  heroImage: '/properties/galilee-property-main.png',
 
   // constants/portfolio/galilee.ts
 videoUrl: 'https://www.youtube.com/embed/uWnijCItQlQ?feature=oembed?playlist=uWnijCItQlQ&mute=0&autoplay=0&loop=no&controls=0&start=0&end=',
@@ -64,5 +64,5 @@ videoTitle: 'The Galilee: Site Tour',
 address: 'Kwara Street, Banana Island, Lagos',
   ...galileeAssets,
 
-  descriptionImage: '/portfolio/the-galilee/interior/galilee-stairs-scaled.webp'
+  descriptionImage: '/portfolio/the-galilee/interior/galilee-stairs-scaled.png'
 }
