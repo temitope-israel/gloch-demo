@@ -11,7 +11,7 @@ export function Services() {
   return (
     <Section
       id="services"
-      className="text-foreground relative overflow-hidden bg-white py-28 transition-colors duration-300"
+      className="text-foreground relative overflow-hidden bg-paper py-28 transition-colors duration-300"
     >
       {/* Background Soft Glow */}
       <div className="pointer-events-none absolute top-1/3 left-1/2 -z-10 h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-amber-500/5 blur-3xl" />

@@ -7,7 +7,7 @@ import { Services } from '@/components/sections/services/Services';
 import { FeaturedProperties } from '@/components/sections/featured-properties/FeaturedProperties';
 import { About } from '@/components/sections/about/About';
 import { CTA } from '@/components/sections/cta/CTA';
-import { LifestyleGallery } from '@/components/sections/lifestyle-gallery/LiftestyleGallery';
+// import { LifestyleGallery } from '@/components/sections/lifestyle-gallery/LiftestyleGallery';
 
 // Testimonials uses Embla + Autoplay — a meaningful chunk of JS that
 // doesn't need to be in the initial bundle, since it's far below the fold.
@@ -28,7 +28,7 @@ export default function Home() {
       <Hero />
       {/* <Stats /> */}
       <WhyChooseUs />
-      <LifestyleGallery />
+      {/* <LifestyleGallery /> */}
       <Services />
       <CTA
         id="consultation"
