@@ -25,7 +25,7 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'slide-2',
-    eyebrow: 'Exclusive Beachfront Living',
+    eyebrow: 'Exclusive Living',
     headline: 'Unrivaled Urban Development',
     video: '/videos/hero-2.mp4',
     poster: '/images/hero-2-poster.jpg',
