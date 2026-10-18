@@ -6,7 +6,7 @@ export const atariResidences: Property = {
   name: 'Atari Residences',
   location: 'South-West Ikoyi, Lagos',
   stats: {
-    status: 'Basement and ground floor construction ongoing',
+    status: '3rd Floor',
     area: '1,417.12sqm',
     type: 'Apartments and Maisonettes',
     apartments: '28',

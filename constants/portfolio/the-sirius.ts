@@ -6,7 +6,7 @@ export const sirius: Property = {
   name: 'The Sirius',
   location: 'South-West Ikoyi, Lagos',
   stats: {
-    status: 'Piling works ongoing',
+    status: '2nd Floor',
     area: '1,242.82sqm',
     type: 'Apartments and Maisonettes',
     apartments: '22',

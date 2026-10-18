@@ -6,7 +6,7 @@ export const elythApartments: Property = {
   name: 'Elyth Apartments',
   location: 'Lekki Phase 1, Lagos',
   stats: {
-    status: 'Roofing works ongoing',
+    status: 'Finishing touches ongoing.',
     area: '1,320sqm',
     type: 'Apartments',
     apartments: '24',
