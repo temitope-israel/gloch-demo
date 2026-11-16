@@ -36,7 +36,7 @@ export const aboutPage = {
     // pages, still needs confirming with the client.
     name: 'Mr. Odiaka-Chinedu',
     role: 'Chief Executive Officer',
-    image: '/about/ceo.jpg',
+    image: '/about/ceo.png',
     quote: 'Every property tells a story. We make sure yours is one of trust.',
     welcomeMessage: [
       'Thank you for visiting our website and taking the time to learn about Gloch Stylistic Limited. At Gloch Stylistic Limited, we are committed to redefining modern living in Nigeria — homes that combine high craftsmanship, smart design, and affordability, never one at the expense of the other.',
@@ -62,7 +62,7 @@ export const aboutTeaser = {
   ceo: {
     name: 'Mr. Odiaka-Chinedu',
     role: 'Chief Executive Officer',
-    image: '/about/ceo.jpg',
+    image: '/about/ceo.png',
     quote: 'Every property tells a story. We make sure yours is one of trust.',
   },
   readMoreHref: '/about/ceo',
