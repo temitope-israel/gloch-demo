@@ -210,7 +210,7 @@ export default function OurTeamPage() {
                         {member.name}
                       </h3>
                       <p className="text-warm-gray-600 text-xs leading-relaxed font-light">
-                        {member.bio}
+                        {/* {member.bio} */}
                       </p>
                     </div>
                   </motion.div>
