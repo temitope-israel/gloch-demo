@@ -14,7 +14,7 @@ export const ourTeamPage = {
   members: [
     { name: 'Mr. Chinedu Odiaka', role: 'CEO', image: '/team/chinedu-odiaka.png' },
     { name: 'Mary Nnaji', role: 'Chief Operating Officer', image: '/team/mary-nnaji.png' },
-    { name: 'Jude Momoh', role: 'Accounting Manager', image: '/team/jude-momoh.png' },
+    { name: 'Jude Momoh', role: 'Accounting Manager', image: '/team/jude-momoh.PNG' },
     { name: 'Nnenna Nwoko', role: 'Sales & Marketing Manager', image: '/team/nnenna-nwoko.png' },
     { name: 'Ifeanyi Nmegwa', role: 'HR & Admin Manager', image: '/team/ifeanyi-nmegwa.png' },
     { name: 'Chuka Okafor', role: 'Procurement Manager', image: '/team/chuka-okafor.png' },
@@ -22,6 +22,6 @@ export const ourTeamPage = {
     { name: 'Chidozie Ndubuaku', role: 'Store Keeper Supervisor', image: '/team/chidozie-ndubuaku.jpeg' },
     { name: 'Arthur Usman', role: 'Chief Surveyor', image: '/team/arthur-usman.jpeg' },
     { name: 'Slyvester Idoko', role: 'Health & Safety Officer', image: '/team/slyvester-idoko.jpeg' },
-    // { name: 'El Ammar Haidar Ali', role: 'Foreman', image: '/team/team/El-Ammar-Haidar-Ali.png' },
+    { name: 'El Ammar Haidar Ali', role: 'Foreman', image: '/team/el-ammar-haidar-ali.png' },
   ] as TeamMember[],
 }
