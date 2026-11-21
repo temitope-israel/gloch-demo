@@ -4,7 +4,7 @@ export const ceoPage = {
   eyebrow: 'Leadership',
   name: 'Mr. Odiaka-Chinedu', // spelling still inconsistent vs "Chinedu Odiaka" on Our Team — needs client confirmation
   role: 'Chief Executive Officer',
-  image: '/about/ceo.png',
+  image: '/about/CEO.png',
   quote: 'Every property tells a story. We make sure yours is one of trust.',
   title: 'A Foundation Built on Integrity',
   heroImage: "/images/hero-ceo.jpg", // <--- Hero background image
