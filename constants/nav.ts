@@ -42,7 +42,7 @@ export const navItems: NavEntry[] = [
       { label: "Sarrie Apartments", href: "/portfolio/sarrie-apartments" },
     ],
   },
-  {label: "Media", href: "/media"},
+  // {label: "Media", href: "/media"},
   { label: "Contact", href: "/contact" },
 ]
 
