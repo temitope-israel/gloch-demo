@@ -80,6 +80,7 @@ export function PropertyPageTemplate({
   const amenitiesScrollRef = useRef<HTMLDivElement>(null);
   const exteriorScrollRef = useRef<HTMLDivElement>(null);
   const interiorScrollRef = useRef<HTMLDivElement>(null);
+  const featuresList = property?.features || [];
 
   const whatsappUrl = `https://wa.me/2349169855031?text=${encodeURIComponent(
     `Hi Gloch Stylistics, I'd like to enquire about ${property?.name || 'this property'}.`
@@ -322,6 +323,37 @@ export function PropertyPageTemplate({
             </motion.div>
           </div>
 
+          {featuresList.length > 0 && (
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeInUpVariants}
+              className="border-warm-gray-200/80 mt-16 w-full min-w-0 border-t pt-8"
+            >
+              <div className="mb-6 flex items-center justify-between">
+                <h3 className="text-ink font-serif text-2xl font-semibold tracking-wider uppercase">
+                  FEATURES
+                </h3>
+              </div>
+
+              <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {featuresList.map((feature, idx) => (
+                  <li
+                    key={idx}
+                    className="border-warm-gray-200 hover:border-gold flex items-start gap-3 rounded-xl border bg-white p-4 shadow-xs transition-colors duration-300"
+                  >
+                    <span className="bg-gold/10 text-gold mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full">
+                      <Check className="h-3.5 w-3.5 stroke-[2.5]" />
+                    </span>
+                    <span className="text-warm-gray-700 font-sans text-sm leading-relaxed">
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
           {/* BOTTOM BLOCK: AMENITIES (FULL WIDTH - 1 ROW, 5 COLUMNS ON LARGE SCREENS) */}
           <motion.div
             initial="hidden"
@@ -388,207 +420,6 @@ export function PropertyPageTemplate({
           </motion.div>
         </Container>
       </Section>
-      {/* <section className="relative isolate flex h-[90vh] w-full flex-col justify-center overflow-hidden bg-black pb-16 text-white sm:h-[720px] md:pb-20">
-        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden select-none">
-          <motion.div
-            initial={{ scale: 1.15 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-            className="relative h-full w-full"
-          >
-            {property?.heroImage && (
-              <Image
-                src={property.heroImage}
-                alt={property?.name || 'Property'}
-                fill
-                priority
-                className="object-cover object-center"
-                sizes="100vw"
-              />
-            )}
-          </motion.div>
-          ?{' '}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black/25" />
-        </div>
-
-        <Container className="relative z-10">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-4xl">
-              <motion.div
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0, ease: [0.16, 1, 0.3, 1] }}
-                className="mb-4 flex flex-wrap items-center gap-3"
-              >
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-[#C9A227]/40 bg-[#C9A227]/10 px-3.5 py-1 font-mono text-xs font-semibold tracking-widest text-white uppercase shadow-sm backdrop-blur-md">
-                  <MapPin className="h-3.5 w-3.5 text-white" />
-                  {property?.location}
-                </span>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="font-serif text-4xl leading-[1.1] font-medium tracking-tight text-white drop-shadow-md sm:text-6xl lg:text-7xl"
-              >
-                {property?.name}
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-4 max-w-2xl text-base leading-relaxed font-light text-white sm:text-lg"
-              >
-                {property?.overviewTitle}
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-6 flex flex-wrap items-center gap-4"
-              >
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group bg-gold hover:bg-gold/90 inline-flex items-center gap-2.5 rounded-xl px-7 py-4 font-mono text-xs font-semibold tracking-wider text-black uppercase transition-all duration-300 hover:shadow-lg hover:shadow-[#C9A227]/20 active:scale-[0.98]"
-                >
-                  <span>Schedule Inspection</span>
-                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-              </motion.div>
-            </div>
-
-            <div className="flex justify-start md:justify-end md:pb-2">
-              <motion.div
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black px-3.5 py-1 font-mono text-xs font-medium tracking-widest text-white uppercase backdrop-blur-md">
-                  <Building2 className="h-3.5 w-3.5 text-white" />
-                  {property?.stats?.status}
-                </span>
-              </motion.div>
-            </div>
-          </div>
-        </Container>
-
-
-      </section> */}
-
-      {/* ========================================================= */}
-      {/* 2. OVERVIEW (65% COL) & AMENITIES (35% COL)              */}
-      {/* ========================================================= */}
-      {/* <Section className="relative z-20 bg-white pt-16 pb-16 lg:pt-24 lg:pb-20">
-        <Container>
-          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-12">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={fadeInUpVariants}
-              className="space-y-6 lg:col-span-7"
-            >
-              <div>
-                <span className="text-gold flex items-center gap-2 font-mono text-xs font-semibold tracking-widest uppercase">
-                  <Sparkles className="h-4 w-4" /> Property Overview
-                </span>
-                <h2 className="text-ink mt-2 font-serif text-3xl font-medium tracking-tight sm:text-4xl">
-                  {property?.overviewTitle || property?.name}
-                </h2>
-              </div>
-
-              <div className="text-warm-gray-700 space-y-4 text-base leading-relaxed font-light">
-                {descriptionList.slice(0, 2).map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
-              </div>
-
-              {property?.brochures && property.brochures.length > 0 && (
-                <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:flex-wrap">
-                  {property.brochures.map((b) => (
-                    <a
-                      key={b.href}
-                      href={b.href}
-                      download
-                      className="border-warm-gray-400 hover:border-gold hover:bg-gold/10 text-ink inline-flex items-center justify-center gap-2.5 rounded-none border bg-white px-6 py-3 font-mono text-xs font-semibold tracking-wider uppercase transition-all duration-300"
-                    >
-                      <Download className="text-gold h-4 w-4" aria-hidden />
-                      {b.label}
-                    </a>
-                  ))}
-                </div>
-              )}
-            </motion.div>
-
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={fadeInUpVariants}
-              className="w-full min-w-0 lg:col-span-5"
-            >
-              <div className="mb-6 flex items-center justify-between">
-                <h3 className="text-ink font-serif text-2xl font-semibold tracking-wider uppercase">
-                  AMENITIES
-                </h3>
-              </div>
-
-              <div className="relative py-2">
-                <div
-                  ref={amenitiesScrollRef}
-                  onScroll={handleAmenitiesScroll}
-                  className="flex w-full snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto scroll-smooth [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-                >
-                  {amenitiesList.map((amenity, i) => {
-                    const IconComponent = amenityIconMap[amenity.key] || Layers;
-                    const isPageStart = i % 3 === 0;
-
-                    return (
-                      <div
-                        key={`${amenity.key}-${i}`}
-                        className={`w-1/3 min-w-[33.333333%] shrink-0 px-1.5 ${
-                          isPageStart ? 'snap-start' : ''
-                        }`}
-                      >
-                        <div className="group border-warm-gray-200 hover:border-gold flex h-[88px] w-full flex-col items-center justify-center rounded-xl border bg-white p-2 shadow-xs transition-all duration-300 hover:shadow-md sm:h-[195px]">
-                          <div className="text-warm-gray-700 group-hover:text-gold mb-1.5 transition-colors duration-300">
-                            <IconComponent className="h-5 w-5 stroke-[1.25] sm:h-5 sm:w-5" />
-                          </div>
-                          <span className="text-ink text-center font-sans text-[10px] leading-tight font-medium sm:text-[11px]">
-                            {amenity.label}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {totalAmenityPages > 1 && (
-                  <div className="mt-5 flex items-center justify-center gap-2">
-                    {Array.from({ length: totalAmenityPages }).map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => scrollToAmenityPage(idx)}
-                        aria-label={`Go to amenities slide ${idx + 1}`}
-                        className={`h-1.5 rounded-full transition-all duration-300 ${
-                          amenitiesActiveIndex === idx
-                            ? 'bg-gold w-5'
-                            : 'bg-warm-gray-300 hover:bg-warm-gray-400 w-1.5'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          </div>
-        </Container>
-      </Section> */}
 
       {/* ========================================================= */}
       {/* 3. VISUAL EXHIBIT (EXTERIOR & INTERIOR GALLERIES)          */}

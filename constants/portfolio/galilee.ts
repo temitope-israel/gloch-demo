@@ -7,14 +7,14 @@ export const galilee: Property = {
   name: 'The Galilee',
   location: 'Banana Island, Ikoyi, Lagos',
   stats: {
-    status: 'Seventh floor slab works ongoing',
+    status: 'Eleventh floor slab works ongoing',
     area: '2000sqm',
     type: 'Luxury Apartments',
     apartments: '38',
     totalFloors: '18',
     flatSize: '256sqm \u2013 507sqm',
   },
-  overviewTitle: 'The Galilee \u2014 Banana Island Living with Waterview Elegance',
+  overviewTitle: 'The Galilee \u2014 Banana Island Living with Elegance',
   description: [
     'Discover The Galilee \u2014 where luxury, serenity, and prestige come together. Located on Kwara Street in Banana Island, Lagos, a location reserved for those who value privacy, status, and enduring excellence. This is not just a residence; it is a mark of distinction.',
     'Designed with architectural precision and built to exceptional standards, with every detail carefully considered. The Galilee reflects a seamless blend of elegance and functionality. Each residence features spacious layouts, premium finishes from globally trusted brands, and modern amenities such as smart-home readiness, energy-efficient systems, and high-performance materials, all tailored for lasting comfort and value.',
