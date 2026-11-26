@@ -171,7 +171,7 @@ export function About() {
             >
               <Link
                 // href={readMoreHref || '/'}
-                href={'/'}
+                href={'/about/ceo'}
                 className="group bg-gold/80 hover:bg-gold inline-flex items-center gap-3 rounded-xl px-6 py-3.5 font-mono text-xs font-semibold tracking-wider text-white uppercase shadow-md transition-all duration-300 hover:shadow-lg active:scale-[0.98]"
               >
                 <span>Read Full Story</span>

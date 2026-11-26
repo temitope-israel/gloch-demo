@@ -20,7 +20,7 @@ export const ourTeamPage = {
 
     { name: 'Jude Momoh', role: 'Accounting Manager', image: '/team/jude-momoh.PNG' },
     {name: 'Mustapha Hashem', role: 'Project Coordinator', image: '/team/mustapha-hashem.png'},
-    { name: 'Bilal Awkal', role: 'Construction Manager', image: '/team/bilal-awkal.png' },
+    // { name: 'Bilal Awkal', role: 'Construction Manager', image: '/team/bilal-awkal.png' },
     { name: 'Chidozie Ndubuaku', role: 'Store Keeper Supervisor', image: '/team/chidozie-ndubuaku.jpeg' },
     { name: 'Arthur Usman', role: 'Chief Surveyor', image: '/team/arthur-usman.jpeg' },
         // { name: 'Ifeanyi Nmegwa', role: 'HR & Admin Manager', image: '/team/ifeanyi-nmegwa.png' },

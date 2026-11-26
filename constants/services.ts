@@ -15,7 +15,7 @@ export const services: Service[] = [
     description:
       'We partner with landowners and investors to bring developments to life, managing every phase from planning and design through to completion.',
     image: '/services/property-development.webp',
-    cta: { label: 'Learn More', href: '#contact' },
+    cta: { label: 'Learn More', href: '/contact' },
   },
   {
     id: 'property-management',
@@ -23,14 +23,14 @@ export const services: Service[] = [
     description:
       'From tenant screening to maintenance coordination, we handle the day-to-day so your investment stays protected and profitable — without demanding your time.',
     image: '/services/property-management.jpg',
-    cta: { label: 'Learn More', href: '#contact' },
+    cta: { label: 'Learn More', href: '/contact' },
   },
-  // {
-  //   id: 'property-maintenance',
-  //   title: 'Property Maintenance',
-  //   description:
-  //     'Our comprehensive maintenance services ensure your property remains in top condition, minimizing downtime and maximizing tenant satisfaction.',
-  //   image: '/services/property-maintenance.jpg',
-  //   cta: { label: 'Learn More', href: '#contact' },
-  // },
+  {
+    id: 'property-maintenance',
+    title: 'Property Maintenance',
+    description:
+      'Our comprehensive maintenance services ensure your property remains in top condition, minimizing downtime and maximizing tenant satisfaction.',
+    image: '/services/property-maintenance.jpg',
+    cta: { label: 'Learn More', href: '/contact' },
+  },
 ]
