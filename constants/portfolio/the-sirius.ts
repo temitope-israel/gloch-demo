@@ -10,7 +10,7 @@ export const sirius: Property = {
     area: '1,242.82sqm',
     type: 'Apartments and Maisonettes',
     apartments: '22',
-    totalFloors: '11',
+    totalFloors: '11 Floors',
     flatSize: '158sqm – 420sqm',
   },
   overviewTitle: 'The Sirius — Refined Living in South-West Ikoyi',

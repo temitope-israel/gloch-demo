@@ -31,6 +31,7 @@ import {
   Camera,
   ExternalLink,
   ChevronLeft,
+  Building,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
@@ -200,6 +201,18 @@ export function PropertyPageTemplate({
               </span>
             </motion.div>
 
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-4 flex flex-wrap items-center gap-3"
+            >
+              <span className="inline-flex items-center gap-1.5 rounded-b-button border border-[#C9A227]/40 bg-gold px-3.5 py-1 font-mono text-xs font-semibold tracking-widest text-white uppercase shadow-sm backdrop-blur-md">
+                <Building2 className="h-3.5 w-3.5 text-white" />
+                {property?.stats.totalFloors}
+              </span>
+            </motion.div>
+
             <motion.h1
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
@@ -217,6 +230,20 @@ export function PropertyPageTemplate({
             >
               {property?.overviewTitle}
             </motion.p>
+
+            {/* <div className="mt-8 md:absolute md:right-8 md:bottom-8 md:mt-0">
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black px-3.5 py-1 font-mono text-xs font-medium tracking-widest text-white uppercase backdrop-blur-md">
+                <Building2 className="h-3.5 w-3.5 text-white" />
+                {property?.stats?.totalFloors}
+              </span>
+
+            </motion.div>
+          </div> */}
 
             <motion.div
               initial={{ opacity: 0, y: 28 }}

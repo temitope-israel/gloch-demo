@@ -11,7 +11,7 @@ export const galilee: Property = {
     area: '2000sqm',
     type: 'Luxury Apartments',
     apartments: '38',
-    totalFloors: '18',
+    totalFloors: '18 Floors',
     flatSize: '256sqm \u2013 507sqm',
   },
   overviewTitle: 'The Galilee \u2014 Banana Island Living with Elegance',

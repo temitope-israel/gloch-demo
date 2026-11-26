@@ -12,7 +12,7 @@ export const glochTower: Property = {
     area: '1528sqm',
     type: 'Apartments and Maisonettes',
     apartments: '38',
-    totalFloors: '17',
+    totalFloors: '17 Floors',
     flatSize: '140sqm \u2013 496sqm',
   },
   overviewTitle: 'Premium Living in the Heart of Victoria Island',

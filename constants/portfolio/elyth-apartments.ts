@@ -4,13 +4,13 @@ import { elythApartmentsAssets } from './elyth-apartments-assets'
 export const elythApartments: Property = {
   slug: 'elyth-apartments',
   name: 'Elyth Apartments',
-  location: 'Lekki Phase 1, Lagos',
+  location: 'Lekki Phase 1, Lagos.',
   stats: {
     status: 'Finishing touches ongoing.',
     area: '1,320sqm',
     type: 'Apartments',
     apartments: '24',
-    totalFloors: '8',
+    totalFloors: '5 Floors',
     flatSize: '110sqm – 285sqm',
   },
   overviewTitle: 'Elyth Apartments — Contemporary Living in Lekki Phase 1',

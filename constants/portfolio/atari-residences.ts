@@ -10,7 +10,7 @@ export const atariResidences: Property = {
     area: '1,417.12sqm',
     type: 'Apartments and Maisonettes',
     apartments: '28',
-    totalFloors: '12',
+    totalFloors: '12 Floors',
     flatSize: '145sqm – 770sqm',
   },
   overviewTitle: 'Atari Residences – Ikoyi Waterfront Luxury. Family Comfort. Enduring Value.',

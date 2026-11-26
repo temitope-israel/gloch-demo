@@ -34,8 +34,8 @@ export const aboutPage = {
     // Matches the spelling used on the homepage teaser. The old site's
     // footer/nav used "Chinedu Odiaka" elsewhere — inconsistent across
     // pages, still needs confirming with the client.
-    name: 'Mr. Odiaka-Chinedu',
-    role: 'Chief Executive Officer',
+    name: 'Mr. Chinedu Odiaka',
+    role: 'Managing Director/CEO',
     image: '/about/CEO.png',
     quote: 'Every property tells a story. We make sure yours is one of trust.',
     welcomeMessage: [
@@ -60,8 +60,8 @@ export const aboutPage = {
 export const aboutTeaser = {
   eyebrow: 'About Gloch Stylistic',
   ceo: {
-    name: 'Mr. Odiaka-Chinedu',
-    role: 'Chief Executive Officer',
+    name: 'Mr. Chinedu Odiaka',
+    role: 'Managing Director/CEO',
     image: '/about/CEO.png',
     quote: 'Every property tells a story. We make sure yours is one of trust.',
   },
