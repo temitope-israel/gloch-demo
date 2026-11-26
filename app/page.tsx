@@ -7,6 +7,7 @@ import { Services } from '@/components/sections/services/Services';
 import { FeaturedProperties } from '@/components/sections/featured-properties/FeaturedProperties';
 import { About } from '@/components/sections/about/About';
 import { CTA } from '@/components/sections/cta/CTA';
+import { MissionVision } from '@/components/sections/why-choose-us/MissionVision';
 // import { LifestyleGallery } from '@/components/sections/lifestyle-gallery/LiftestyleGallery';
 
 // Testimonials uses Embla + Autoplay — a meaningful chunk of JS that
@@ -28,6 +29,12 @@ export default function Home() {
       <Hero />
       {/* <Stats /> */}
       <WhyChooseUs />
+      <MissionVision
+        mission="We develop premium yet affordable homes through innovative construction, disciplined cost management, and ethical business practices — ensuring our clients enjoy superior living, long-term value, and peace of mind."
+
+        vision="To become Nigeria's most trusted and forward-thinking real estate developer — transforming urban living through sustainable design, exceptional quality, and thoughtfully priced homes that build lasting generational wealth for families."
+        variant="light" // or "dark"
+      />{' '}
       {/* <LifestyleGallery /> */}
       <Services />
       <CTA

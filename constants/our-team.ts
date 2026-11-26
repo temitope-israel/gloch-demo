@@ -21,7 +21,7 @@ export const ourTeamPage = {
     { name: 'Bilal Awkal', role: 'Construction Manager', image: '/team/bilal-awkal.png' },
     { name: 'Chidozie Ndubuaku', role: 'Store Keeper Supervisor', image: '/team/chidozie-ndubuaku.jpeg' },
     { name: 'Arthur Usman', role: 'Chief Surveyor', image: '/team/arthur-usman.jpeg' },
-    { name: 'Slyvester Idoko', role: 'Health & Safety Officer', image: '/team/slyvester-idoko.jpeg' },
+    { name: 'Slyvester Idoko', role: 'HSE Supervisor', image: '/team/slyvester-idoko.jpeg' },
     { name: 'El Ammar Haidar Ali', role: 'Foreman', image: '/team/el-ammar-haidar-ali.png' },
   ] as TeamMember[],
 }
