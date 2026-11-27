@@ -6,7 +6,7 @@ export const quadrantMall: Property = {
   name: 'Quadrant Mall',
   location: 'Lekki Phase 1, Lagos',
   stats: {
-    status: 'Fourth floor slab work completed',
+    status: 'External and Block Works ongoing.',
     area: '1292sqm',
     type: 'Commercial & Retail Spaces',
     apartments: 'N/A',

@@ -7,7 +7,7 @@ export const galilee: Property = {
   name: 'The Galilee',
   location: 'Banana Island, Ikoyi, Lagos',
   stats: {
-    status: 'Eleventh floor slab works ongoing',
+    status: 'Eleventh floor slab works ongoing.',
     area: '2000sqm',
     type: 'Luxury Apartments',
     apartments: '38',

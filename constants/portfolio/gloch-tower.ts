@@ -8,7 +8,7 @@ export const glochTower: Property = {
   name: 'Gloch Tower',
   location: 'Banana Island, Ikoyi, Lagos',
   stats: {
-    status: 'Finishing works ongoing',
+    status: 'Finishing works ongoing.',
     area: '1528sqm',
     type: 'Apartments and Maisonettes',
     apartments: '38',

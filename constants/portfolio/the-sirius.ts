@@ -4,16 +4,16 @@ import { siriusAssets } from './the-sirius-assets'
 export const sirius: Property = {
   slug: 'the-sirius',
   name: 'The Sirius',
-  location: 'South-West Ikoyi, Lagos',
+  location: 'Manuwa Street, Ikoyi, Lagos',
   stats: {
-    status: '2nd Floor',
+    status: '2nd Floor.',
     area: '1,242.82sqm',
     type: 'Apartments and Maisonettes',
     apartments: '22',
     totalFloors: '11 Floors',
     flatSize: '158sqm – 420sqm',
   },
-  overviewTitle: 'The Sirius — Refined Living in South-West Ikoyi',
+  overviewTitle: 'The Sirius — Refined Living on Manuwa Street, Ikoyi',
   description: [
     'Experience sophistication and comfort at The Sirius, a premier residential development offering breathtaking views of the Lagos Lagoon and Atlantic Ocean. Designed for modern living, it features Two-Bedroom Apartments (stylish and spacious for contemporary living), Three-Bedroom Maisonettes with BQ (elegance meets functionality), and Four-Bedroom Penthouse Maisonettes with BQ (the pinnacle of luxury with panoramic views).',
     'Crafted by Kingslinkup Pro-Edifice Limited and Gloch Stylistic Limited, The Sirius boasts expansive lobbies, state-of-the-art kitchens, en-suite bedrooms, and impeccable finishing. Nestled in Ikoyi’s prime district, it offers proximity to top businesses, luxury shopping, fine dining, and vibrant social venues.',

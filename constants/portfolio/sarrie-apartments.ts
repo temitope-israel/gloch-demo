@@ -6,7 +6,7 @@ export const sarrieApartments: Property = {
   name: 'Sarrie Apartments',
   location: 'Onitana Road, Ikoyi, Lagos',
   stats: {
-    status: '100% Completed',
+    status: '100% Completed.',
     area: '1178sqm',
     type: 'Luxury Apartments',
     apartments: '11',

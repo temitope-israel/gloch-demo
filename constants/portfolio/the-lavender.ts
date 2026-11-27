@@ -6,7 +6,7 @@ export const lavender: Property = {
   name: 'The Lavender',
   location: 'Victoria Island, Lagos',
   stats: {
-    status: 'Piling works ongoing',
+    status: 'Piling works ongoing.',
     area: '1007.74sqm',
     type: 'Apartments & Maisonettes',
     apartments: '19',
